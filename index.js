@@ -7,9 +7,9 @@ module.exports = {
     this._super.included(app);
     this.app = app;
 
-    //Typeahead
-    app.import('vendor/typeahead.js/dist/bloodhound.js');
-    app.import('vendor/typeahead.js/dist/typeahead.bundle.js');
+    //Typeahead.js
+    app.import('bower_components/typeahead.js/dist/typeahead.bundle.min.js');
+    app.import('bower_components/ember/ember-template-compiler.js');
   },
   afterInstall: function() {
     return this.addBowerPackageToProject('typeahead.js');

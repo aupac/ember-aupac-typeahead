@@ -1,3 +1,41 @@
-<h2 id="title">Welcome to Ember.js</h2>
+<div class="container">
+  <h1>aupac-typeahead examples</h1>
 
-{{outlet}}
+  <div class="panel panel-default">
+      <div class="panel-heading"><h4>ember-data model search</h4></div>
+      <div class="panel-body">
+
+          <div class="row">
+              <div class="col-xs-12">
+                {{input type="checkbox" name="isAdmin" checked=disabled}} Disable
+              </div>
+              <div class="col-xs-12">
+                  <label>Placeholder</label>
+                {{input type="text" name="placeholder" value=placeholder class="form-control"}}
+              </div>
+              <div class="col-xs-12">
+                {{aupac-typeahead action=(action (mut selection))
+                  store=store
+                  modelClass='task'
+                  disabled=disabled
+                  placeholder=placeholder
+                  highlight = highlight
+                  hint = hint
+                  minLength = minLength
+                  classNames = classNames
+                  autoFocus = autoFocus
+                  suggestionKey  = suggestionKey
+                  suggestionTemplate  = nsuggestionTemplate
+                  displayKey = displayKey
+                  params = params
+                  queryKey = queryKey
+                }}
+              </div>
+              <div class="col-xs-12">
+                  You selected: {{#if selection.id}}ID:{{selection.id}} - {{selection.name}}{{/if}}
+              </div>
+          </div>
+
+      </div>
+  </div>
+</div>
