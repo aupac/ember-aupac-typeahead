@@ -18,6 +18,9 @@ export default Ember.Component.extend({
   name : '',
   value : '',
 
+  //Actions
+  action: Ember.K, // action to fire on change
+
   //typeahead.js Customizations
   highlight: true,
   hint: true,
@@ -44,10 +47,13 @@ export default Ember.Component.extend({
 
   //Private
   _typeahead: null,
-  _selection: null,
+
+  // shadow the passed-in `selection` to avoid
+  // leaking changes to it via a 2-way binding
+  _selection: Ember.computed.reads('selection'),
 
   init : function() {
-    this._super.apply(this, arguments);
+    this._super(...arguments);
 
     if(!(this.get('store') instanceof DS.Store)) {
       throw new Error('a DS.Store instance must to supplied to aupac-typeahead');
@@ -56,6 +62,8 @@ export default Ember.Component.extend({
     if(isNone(this.get('modelClass'))) {
       throw new Error('modelClass must be supplied to aupac-typeahead');
     }
+
+    this.set('_selection', selection);
   },
 
   didInsertElement: function () {
@@ -79,13 +87,11 @@ export default Ember.Component.extend({
 
     // Set selected object
     t.on('typeahead:autocompleted', Ember.run.bind(this, (jqEvent, suggestionObject, nameOfDatasetSuggestionBelongsTo) => {
-      Ember.debug("Setting suggestion");
       this.set('_selection', suggestionObject);
       this.sendAction('action', suggestionObject);
     }));
 
     t.on('typeahead:selected', Ember.run.bind(this, (jqEvent, suggestionObject, nameOfDatasetSuggestionBelongsTo) => {
-      Ember.debug("Setting suggestion");
       this.set('_selection', suggestionObject);
       this.sendAction('action', suggestionObject);
     }));
