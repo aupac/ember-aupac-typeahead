@@ -9,6 +9,7 @@ const Key = {
 }
 
 export default Ember.Component.extend({
+  //input tag attributes
   tagName : 'input',
   classNames: ['aupac-typeahead'],
   attributeBindings : ['disabled','placeholder','name', 'value'],
@@ -16,26 +17,30 @@ export default Ember.Component.extend({
   placeholder : 'Search',
   name : '',
   value : '',
-  store : null, //Required
-  modelClass : null, //Required
 
-  //customizations
+  //typeahead.js Customizations
   highlight: true,
   hint: true,
   minLength: 2,
   classNames: {},
   autoFocus: false,
-  suggestionKey : 'displayName',
-  displayKey : 'displayName',
-  params : {},
   queryKey : 'q',
+  limit : 100,
 
-  //Templates
+  //HtmlBars Templates
   suggestionTemplate : null,
   notFoundTemplate : "<p class='text-center'>No results found.<p>",
   pendingTemplate :  "<p class='text-center'>Please wait...<p>",
   headerTemplate : null,
   footerTemplate : null,
+
+  //Required for ember-data
+  store : null, //Required
+  modelClass : null, //Required
+  suggestionKey : 'displayName',
+  displayKey : 'displayName',
+  params : {},
+  selection : null,
 
   //Private
   _typeahead: null,
@@ -43,6 +48,7 @@ export default Ember.Component.extend({
 
   init : function() {
     this._super.apply(this, arguments);
+
     if(!(this.get('store') instanceof DS.Store)) {
       throw new Error('a DS.Store instance must to supplied to aupac-typeahead');
     }
@@ -60,25 +66,7 @@ export default Ember.Component.extend({
     }
   },
 
-  selectionUpdated : observer('_selection',function() {
-    if(Ember.isNone(this.get('_selection'))) {
-      this.get('_typeahead').typeahead('val', '');
-    }
-  }),
-
-  dataset: computed(function () {
-    var self = this, content = this.get('content');
-    if (jQuery.isFunction(content)) {
-      content.then(function (data) {
-        return self.loadDataset(data);
-      });
-    } else {
-      return this.loadDataset(content);
-    }
-  }),
-
   initializeTypeahead: function () {
-    const self = this;
 
     //Setup the typeahead
     const t = this.$().typeahead({
@@ -90,36 +78,36 @@ export default Ember.Component.extend({
     this.set('_typeahead', t);
 
     // Set selected object
-    t.on('typeahead:autocompleted', Ember.run.bind(this, function(jqEvent, suggestionObject, nameOfDatasetSuggestionBelongsTo){
+    t.on('typeahead:autocompleted', Ember.run.bind(this, (jqEvent, suggestionObject, nameOfDatasetSuggestionBelongsTo) => {
       Ember.debug("Setting suggestion");
-      self.set('_selection', suggestionObject);
-      self.sendAction('action', suggestionObject);
+      this.set('_selection', suggestionObject);
+      this.sendAction('action', suggestionObject);
     }));
 
-    t.on('typeahead:selected', Ember.run.bind(this, function(jqEvent, suggestionObject, nameOfDatasetSuggestionBelongsTo){
+    t.on('typeahead:selected', Ember.run.bind(this, (jqEvent, suggestionObject, nameOfDatasetSuggestionBelongsTo) => {
       Ember.debug("Setting suggestion");
-      self.set('_selection', suggestionObject);
-      self.sendAction('action', suggestionObject);
+      this.set('_selection', suggestionObject);
+      this.sendAction('action', suggestionObject);
     }));
 
-    t.on('keyup', Ember.run.bind(this, function(jqEvent){
+    t.on('keyup', Ember.run.bind(this, (jqEvent) => {
       //Handle the case whereby the user presses the delete or backspace key, in either case
       //the selection is no longer valid.
       if (jqEvent.which === Key.BACKSPACE || jqEvent.which === Key.DELETE) {
         Ember.debug("Removing model");
-        self.set('_selection', null);
-        self.sendAction('action', null);
+        this.set('_selection', null);
+        this.sendAction('action', null);
       }
     }));
 
-    t.on('focusout', Ember.run.bind(this, function(jqEvent){
+    t.on('focusout', Ember.run.bind(this, (jqEvent) => {
       //the user has now left the control, update display with current binding or reset to blank
-      var model = self.get('_selection');
+      var model = this.get('_selection');
       if(model) {
-        var displayKey = self.get('displayKey');
-        self.$().typeahead('val', model.get(displayKey));
+        var displayKey = this.get('displayKey');
+        this.$().typeahead('val', model.get(displayKey));
       } else {
-        self.$().typeahead('val', '');
+        this.$().typeahead('val', '');
       }
     }));
 
@@ -128,41 +116,52 @@ export default Ember.Component.extend({
   },
 
   setupInitialValue : function() {
-    var self = this;
-
-    var selection = this.get('_selection');
-    var displayKey = this.get('displayKey');
-    var store = this.get('store');
-    var modelClass = this.get('modelClass');
+    const selection = this.get('_selection');
+    const displayKey = this.get('displayKey');
+    const store = this.get('store');
+    const modelClass = this.get('modelClass');
     if(selection && selection.get('id')) {
-      store.findRecord(modelClass, selection.get('id')).then(function(model) {
-        self.$().typeahead('val', model.get(displayKey));
+      store.findRecord(modelClass, selection.get('id')).then((model) => {
+        this.$().typeahead('val', model.get(displayKey));
       });
     } else {
       this.get('_typeahead').typeahead('val', '');
     }
   },
 
+  selectionUpdated : observer('_selection',function() {
+    if(Ember.isNone(this.get('_selection'))) {
+      this.get('_typeahead').typeahead('val', '');
+    }
+  }),
 
+  dataset: computed(function () {
+    const content = this.get('content');
+    if (jQuery.isFunction(content)) {
+      content.then((data) => {
+        return this.loadDataset(data);
+      });
+    } else {
+      return this.loadDataset(content);
+    }
+  }),
 
   loadDataset: function (content) {
-    var self = this;
-    var modelClass = this.get('modelClass');
-    var name = this.get('name') || 'default';
-    var key = this.get('displayKey');
-    var params = this.get('params');
-
-    var suggestionKey = this.get('suggestionKey');
-    var compiledSuggestionTemplate = Handlebars.compile(this.get('suggestionTemplate') || `{{${suggestionKey}}}`);
+    const self = this;
+    const modelClass = this.get('modelClass');
+    const name = this.get('name') || 'default';
+    const key = this.get('displayKey');
+    const params = this.get('params');
+    const suggestionKey = this.get('suggestionKey');
+    const compiledSuggestionTemplate = Handlebars.compile(this.get('suggestionTemplate') || `{{${suggestionKey}}}`);
 
     return {
       name: name,
       display: function(model) {
         return model.get(key);
-        //return model.getRecord().get(key); //Ember-data 1.13.0 FIX
       },
       async : true,
-      limit : 100,
+      limit : self.get('limit'),
       source : function (q, syncResults, asyncResults) { //query, syncResults, asyncResults
           var query = {}
           query[self.get('queryKey')] = q;

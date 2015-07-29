@@ -14,22 +14,15 @@
                 {{input type="text" name="placeholder" value=placeholder class="form-control"}}
               </div>
               <div class="col-xs-12">
-                {{aupac-typeahead action=(action (mut selection))
-                  store=store
-                  modelClass='task'
-                  disabled=disabled
-                  placeholder=placeholder
-                  highlight = highlight
-                  hint = hint
-                  minLength = minLength
-                  classNames = classNames
-                  autoFocus = autoFocus
-                  suggestionKey  = suggestionKey
-                  suggestionTemplate  = nsuggestionTemplate
-                  displayKey = displayKey
-                  params = params
-                  queryKey = queryKey
-                }}
+                  <div class="input-group">
+                      <span class="input-group-addon">@</span>
+                      {{aupac-typeahead action=(action (mut selection))
+                      class='form-control'
+                      store=store
+                      modelClass='task'
+                      }}
+                      <span class="input-group-addon">@</span>
+                  </div>
               </div>
               <div class="col-xs-12">
                   You selected: {{#if selection.id}}ID:{{selection.id}} - {{selection.name}}{{/if}}
