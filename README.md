@@ -23,10 +23,12 @@ In addition to all the features supported by `aupac-typeahead` (see below), `aup
 
 This component has already implemented the `source`, `setValue` and `display` functions to make them compatible with ember-data.  You do not need to do so yourself.
 
-### Example
+### Usage example
 ```javascript
-{{aupac-ember-data-typeahead modelClass='task' action=(action (mut selection)) class='form-control'}}
+{{aupac-ember-data-typeahead modelClass='task' action=(action (mut selection))}}
 ```
+
+The above is all you need to have a fully functional autocomplete search in your page.  It would create an input that allows you to search for tasks and when selected would update the `selection` property on your controller.
 
 ## aupac-typeahead
 The `aupac-typeahead` component contains no assumptions about how you are retrieving your data.  Both local and remote suggestions are supported.
