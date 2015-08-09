@@ -5,30 +5,45 @@
       <div class="panel-heading"><h4>ember-data model search</h4></div>
       <div class="panel-body">
 
-          <div class="row">
-              <div class="col-xs-12">
-                {{input type="checkbox" name="isAdmin" checked=disabled}} Disable
-              </div>
-              <div class="col-xs-12">
-                  <label>Placeholder</label>
-                {{input type="text" name="placeholder" value=placeholder class="form-control"}}
-              </div>
-              <div class="col-xs-12">
-                  <div class="input-group">
-                      <span class="input-group-addon">@</span>
-                      {{aupac-typeahead action=(action (mut selection))
-                      class='form-control'
-                      store=store
-                      modelClass='task'
-                      }}
-                      <span class="input-group-addon">@</span>
-                  </div>
-              </div>
-              <div class="col-xs-12">
-                  You selected: {{#if selection.id}}ID:{{selection.id}} - {{selection.name}}{{/if}}
+          <div class="col-xs-12">
+              <h2>Current Selection: {{selection.name}}</h2>
+          </div>
+
+          <div class="col-xs-12">
+              <div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                  {{aupac-ember-data-typeahead action=(action (mut selection))
+                  class='form-control'
+                  modelClass='task'
+                  }}
               </div>
           </div>
 
       </div>
   </div>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4>Preselecting Items</h4></div>
+        <div class="panel-body">
+
+            <div class="col-xs-12">
+                <h2>Current Selection: {{selection2.name}}</h2>
+            </div>
+
+            <div class="col-xs-12">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                  {{aupac-ember-data-typeahead action=(action (mut selection2))
+                    selection=selection2Initial
+                  class='form-control'
+                  modelClass='task'
+                  }}
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
+
+

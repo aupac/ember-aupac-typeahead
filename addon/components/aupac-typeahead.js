@@ -1,25 +1,25 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
-const {computed, observer, isNone, Handlebars} = Ember;
+const {computed, observer, isNone, Handlebars, inject, run, debug, Component, on} = Ember;
 
 const Key = {
   BACKSPACE : 8,
   DELETE : 46
-}
+};
 
-export default Ember.Component.extend({
+export default Component.extend({
   //input tag attributes
   tagName : 'input',
   classNames: ['aupac-typeahead'],
-  attributeBindings : ['disabled','placeholder','name', 'value'],
+  attributeBindings : ['disabled','placeholder'],
   disabled : false,
   placeholder : 'Search',
-  name : '',
-  value : '',
 
   //Actions
   action: Ember.K, // action to fire on change
+  selection : null,
+  source : Ember.K,
 
   //typeahead.js Customizations
   highlight: true,
@@ -28,180 +28,165 @@ export default Ember.Component.extend({
   classNames: {},
   autoFocus: false,
   queryKey : 'q',
-  limit : 100,
+  limit : 15,
+  async : false,
+  name : '',
+  display : function(model) {
+    return model;
+  },
+  setValue : function(selection) {
+    if(selection) {
+      this.get('_typeahead').typeahead('val', selection);
+    } else {
+      this.get('_typeahead').typeahead('val', '');
+    }
+  },
 
   //HtmlBars Templates
   suggestionTemplate : null,
-  notFoundTemplate : "<p class='text-center'>No results found.<p>",
-  pendingTemplate :  "<p class='text-center'>Please wait...<p>",
+  notFoundTemplate : null,
+  pendingTemplate :  null,
   headerTemplate : null,
   footerTemplate : null,
-
-  //Required for ember-data
-  store : null, //Required
-  modelClass : null, //Required
-  suggestionKey : 'displayName',
-  displayKey : 'displayName',
-  params : {},
-  selection : null,
 
   //Private
   _typeahead: null,
 
   // shadow the passed-in `selection` to avoid
   // leaking changes to it via a 2-way binding
-  _selection: Ember.computed.reads('selection'),
-
-  init : function() {
-    this._super(...arguments);
-
-    if(!(this.get('store') instanceof DS.Store)) {
-      throw new Error('a DS.Store instance must to supplied to aupac-typeahead');
-    }
-
-    if(isNone(this.get('modelClass'))) {
-      throw new Error('modelClass must be supplied to aupac-typeahead');
-    }
-
-    this.set('_selection', selection);
-  },
+  _selection: computed.reads('selection'),
 
   didInsertElement: function () {
-    this._super.apply(this, arguments);
+    this._super(...arguments);
     this.initializeTypeahead();
     if (this.get('autoFocus') === true) {
       this.get('_typeahead').focus();
     }
   },
 
-  initializeTypeahead: function () {
-
+  initializeTypeahead: function() {
+    const self = this;
     //Setup the typeahead
     const t = this.$().typeahead({
       highlight: this.get('highlight'),
       hint: this.get('hint'),
       minLength: this.get('minLength'),
       classNames: this.get('classNames')
-    }, this.get('dataset'));
+      }, {
+        component : this,
+        name: this.get('name') || 'default',
+        display: this.get('display'),
+        async: this.get('async'),
+        limit: this.get('limit'),
+        source: this.get('source'),
+        templates: {
+          suggestion: function (model) {
+            const item = Component.create({
+              model: model,
+              layout: self.get('compiledSuggestionTemplate')
+            }).createElement();
+            return item.element;
+          },
+          notFound: function (query) {
+            const item = Component.create({
+              query: model,
+              layout: self.get('compiledNotFoundTemplate')
+            }).createElement();
+            return item.element;
+          },
+          pending: function (query) {
+            const item = Component.create({
+              query: query,
+              layout: self.get('compiledPendingTemplate')
+            }).createElement();
+            return item.element;
+          },
+          header: function (query, suggestions) {
+            const item = Component.create({
+              query: query,
+              suggestions: suggestions,
+              layout: self.get('compiledHeaderTemplate')
+            }).createElement();
+            return item.element;
+          },
+          footer: function (query, suggestions) {
+            const item = Component.create({
+              query: query,
+              suggestions: suggestions,
+              layout: self.get('compiledFooterTemplate')
+            }).createElement();
+            return item.element;
+          }
+        }
+    });
     this.set('_typeahead', t);
 
     // Set selected object
-    t.on('typeahead:autocompleted', Ember.run.bind(this, (jqEvent, suggestionObject, nameOfDatasetSuggestionBelongsTo) => {
+    t.on('typeahead:autocompleted', run.bind(this, (jqEvent, suggestionObject, nameOfDatasetSuggestionBelongsTo) => {
       this.set('_selection', suggestionObject);
       this.sendAction('action', suggestionObject);
     }));
 
-    t.on('typeahead:selected', Ember.run.bind(this, (jqEvent, suggestionObject, nameOfDatasetSuggestionBelongsTo) => {
+    t.on('typeahead:selected', run.bind(this, (jqEvent, suggestionObject, nameOfDatasetSuggestionBelongsTo) => {
       this.set('_selection', suggestionObject);
       this.sendAction('action', suggestionObject);
     }));
 
-    t.on('keyup', Ember.run.bind(this, (jqEvent) => {
+    t.on('keyup', run.bind(this, (jqEvent) => {
       //Handle the case whereby the user presses the delete or backspace key, in either case
       //the selection is no longer valid.
       if (jqEvent.which === Key.BACKSPACE || jqEvent.which === Key.DELETE) {
-        Ember.debug("Removing model");
+        debug("Removing model");
+        const value = this.get('_typeahead').typeahead('val'); //cache value
         this.set('_selection', null);
         this.sendAction('action', null);
+        this.$().typeahead('val', value); //restore the text, thus allowing the user to make corrections
       }
     }));
 
-    t.on('focusout', Ember.run.bind(this, (jqEvent) => {
+    t.on('focusout', run.bind(this, (jqEvent) => {
       //the user has now left the control, update display with current binding or reset to blank
-      var model = this.get('_selection');
-      if(model) {
-        var displayKey = this.get('displayKey');
-        this.$().typeahead('val', model.get(displayKey));
+      const model = this.get('_selection');
+      if (model) {
+        this.setValue(model);
       } else {
-        this.$().typeahead('val', '');
+        this.setValue(null);
       }
     }));
 
-    //set initial value
-    this.setupInitialValue();
-  },
-
-  setupInitialValue : function() {
-    const selection = this.get('_selection');
-    const displayKey = this.get('displayKey');
-    const store = this.get('store');
-    const modelClass = this.get('modelClass');
-    if(selection && selection.get('id')) {
-      store.findRecord(modelClass, selection.get('id')).then((model) => {
-        this.$().typeahead('val', model.get(displayKey));
-      });
-    } else {
-      this.get('_typeahead').typeahead('val', '');
-    }
   },
 
   selectionUpdated : observer('_selection',function() {
-    if(Ember.isNone(this.get('_selection'))) {
+    const selection = this.get('_selection');
+    if(isNone(selection)) {
       this.get('_typeahead').typeahead('val', '');
-    }
-  }),
-
-  dataset: computed(function () {
-    const content = this.get('content');
-    if (jQuery.isFunction(content)) {
-      content.then((data) => {
-        return this.loadDataset(data);
-      });
     } else {
-      return this.loadDataset(content);
+      this.setValue(selection);
     }
   }),
 
-  loadDataset: function (content) {
-    const self = this;
-    const modelClass = this.get('modelClass');
-    const name = this.get('name') || 'default';
-    const key = this.get('displayKey');
-    const params = this.get('params');
-    const suggestionKey = this.get('suggestionKey');
-    const compiledSuggestionTemplate = Handlebars.compile(this.get('suggestionTemplate') || `{{${suggestionKey}}}`);
+  compiledSuggestionTemplate : computed(function() {
+    return Handlebars.compile(this.get('suggestionTemplate') || `<div class='typeahead-suggestion'>{{model}}</div>`);
+  }),
 
-    return {
-      name: name,
-      display: function(model) {
-        return model.get(key);
-      },
-      async : true,
-      limit : self.get('limit'),
-      source : function (q, syncResults, asyncResults) { //query, syncResults, asyncResults
-          var query = {}
-          query[self.get('queryKey')] = q;
-          var queryObj = $.extend(true, {}, query , self.get('params'));
+  compiledNotFoundTemplate : computed(function() {
+    return Handlebars.compile(this.get('notFoundTemplate') || `<div class='typeahead-not-found'>No results found.</div>`);
+  }),
 
-          self.get('store').query(self.get('modelClass'), queryObj).then(function(models) {
-            let emberDataModels = [];
-            models.get('content').forEach(function(model, i) {
-              emberDataModels[i] = model.getRecord();
-            });
-            asyncResults(emberDataModels);
-          });
-      },
-      templates: {
-        suggestion: function(model){
-          var view = Ember.View.create({
-            tagName : 'p',
-            controller : model,
-            template: compiledSuggestionTemplate
-          }).createElement();
+  compiledPendingTemplate : computed(function() {
+    return Handlebars.compile(this.get('pendingTemplate') || `<div class='typeahead-pending'>Loading...</div>`);
+  }),
 
-          return view.element;
-        },
-        //suggestion: suggestionTemplate,
-        notFound : self.get('notFoundTemplate'),
-        pending : self.get('pendingTemplate'),
-        header :  self.get('headerTemplate'),
-        footer :  self.get('footerTemplate')
-      }
-    };
-  },
+  compiledHeaderTemplate : computed(function() {
+    return Handlebars.compile(this.get('headerTemplate') || `<div class='typeahead-header'></div>`);
+  }),
+
+  compiledFooterTemplate : computed(function() {
+    return Handlebars.compile(this.get('footerTemplate') || `<div class='typeahead-footer'></div>`);
+  }),
 
   willDestroyElement : function() {
-    this._super();
+    this._super(...arguments);
     this.get('_typeahead').typeahead('destroy');
   }
 

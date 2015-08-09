@@ -1,18 +1,13 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
-  disabled : false,
-  placeholder : 'Search',
+const {computed} = Ember;
 
-  highlight: true,
-  hint: true,
-  minLength: 2,
-  classNames: {},
-  autoFocus: false,
-  suggestionKey : 'displayName',
-  suggestionTemplate : null, //TODO add the rest of the templates header, footer etc.
-  displayKey : 'displayName',
-  params : {},
-  queryKey : 'q',
+export default Ember.Controller.extend({
+
+  selection : null,
+  selection2 : null,
+  selection2Initial : computed(function() {
+    return this.store.findRecord('task', 3);
+  })
 
 });
