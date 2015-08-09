@@ -11,7 +11,7 @@ Demo [HERE](http://aupac.github.io/ember-aupac-typeahead/)
 Sorry, this addon is not yet ready for consumption!
 
 ## aupac-ember-data-typeahead
-The `aupac-ember-data-typeahead` component assumes you are using ember-data to retrieve you data remotely.
+The `aupac-ember-data-typeahead` component is an extension of `aupac-typeahead` and assumes you are using ember-data to retrieve you data remotely.  This allows ember-data user to streamline the use of this component into a single line in their template.
 
 ### Component Attributes
 In addition to all the features supported by `aupac-typeahead` (see below), `aupac-ember-data-typeahead` supports the following:
@@ -29,7 +29,7 @@ This component has already implemented the `source`, `setValue` and `display` fu
 ```
 
 ## aupac-typeahead
-The `aupac-typeahead` contains no assumptions about how you are retrieving your data.  Both local and remote suggestions are supported.
+The `aupac-typeahead` component contains no assumptions about how you are retrieving your data.  Both local and remote suggestions are supported.
 
 ### Component Attributes
 -  `disabled` : (deafult: false) true if the control should be disabled.
@@ -40,7 +40,7 @@ The `aupac-typeahead` contains no assumptions about how you are retrieving your 
 -  `queryKey`: (default: 'q') the query parameter sent to the server containing the search text.
 -  `setValue`: a function to set the initial value based on `selection`, signature `function(selection)`.
     
-See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets) for a more complete description.
+See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets) for a more complete description of the items below.
 -  `source` : a function to return an array of items to display to the user with the signature `function(query, syncResults, asyncResults)`.
 -  `async` : (default: false) true if the returned data asynchronous.
 -  `name` : (default: 'default') the name of the dataset.
@@ -52,7 +52,7 @@ See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc
 -  `headerTemplate` : a template displayed at the top of the search results.
 -  `footerTemplate` : a template displayed at the bottom of the search results.  
           
-See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#options) for a more complete description.
+See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#options) for a more complete description of the items below.
 -  `highlight`: (default: true) true if matching text be highlighted in the search results.
 -  `hint`: (default: true) true if hints be displayed in the input.
 -  `minLength`: (default: 2) the minumum number of characters before a search in performed.
@@ -75,7 +75,7 @@ You can disable the importing of typeahead.js but adding the following to your `
 The current compatible version is *v0.11.1*
 
 ##CSS Styling
-See the [typeahead.js docs]()https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#class-names) for applying your own custom styling.
+See the [typeahead.js docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#class-names) for applying your own custom styling.
 
 ##Testing
 
