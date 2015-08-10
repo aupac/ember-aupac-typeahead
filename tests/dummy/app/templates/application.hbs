@@ -1,20 +1,43 @@
 <div class="container">
-  <h1>aupac-typeahead examples</h1>
-
+  <h2>aupac-typeahead examples</h2>
   <div class="panel panel-default">
-      <div class="panel-heading"><h4>ember-data model search</h4></div>
+      <div class="panel-heading"><h4>Searching a local array</h4></div>
       <div class="panel-body">
 
           <div class="col-xs-12">
-              <h2>Current Selection: {{selection.name}}</h2>
+              <h5>Selected Country: {{country}}</h5>
           </div>
 
           <div class="col-xs-12">
               <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                  {{aupac-ember-data-typeahead action=(action (mut selection))
+                {{aupac-typeahead action=(action (mut country))
                   class='form-control'
-                  modelClass='task'
+                  source=countrySource
+                  placeholder='Search for a country'
+                }}
+              </div>
+          </div>
+
+      </div>
+  </div>
+
+    <h2>aupac-ember-data-typeahead examples</h2>
+  <div class="panel panel-default">
+      <div class="panel-heading"><h4>ember-data model search</h4></div>
+      <div class="panel-body">
+
+          <div class="col-xs-12">
+              <h5>Selected Employee: {{employee.name}}</h5>
+          </div>
+
+          <div class="col-xs-12">
+              <div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                  {{aupac-ember-data-typeahead action=(action (mut employee))
+                    class='form-control'
+                    modelClass='employee'
+                    placeholder='Type employee...'
                   }}
               </div>
           </div>
@@ -22,28 +45,30 @@
       </div>
   </div>
 
+  <div class="panel panel-default">
+      <div class="panel-heading"><h4>ember-data model search with preselected item</h4></div>
+      <div class="panel-body">
 
-    <div class="panel panel-default">
-        <div class="panel-heading"><h4>Preselecting Items</h4></div>
-        <div class="panel-body">
+          <div class="col-xs-12">
+              <h5>Selected task: {{task.name}}</h5>
+          </div>
 
-            <div class="col-xs-12">
-                <h2>Current Selection: {{selection2.name}}</h2>
-            </div>
-
-            <div class="col-xs-12">
-                <div class="input-group">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                  {{aupac-ember-data-typeahead action=(action (mut selection2))
-                    selection=selection2Initial
+          <div class="col-xs-12">
+              <div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                {{aupac-ember-data-typeahead action=(action (mut task))
+                  selection=initialTask
                   class='form-control'
                   modelClass='task'
-                  }}
-                </div>
-            </div>
+                  placeholder='Type task...'
+                }}
+              </div>
+          </div>
 
-        </div>
-    </div>
+      </div>
+  </div>
+
+
 </div>
 
 

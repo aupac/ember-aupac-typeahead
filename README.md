@@ -8,17 +8,18 @@ Demo [HERE](http://aupac.github.io/ember-aupac-typeahead/)
 
 ## Installation
 
-Sorry, this addon is not yet ready for consumption!
+`ember install ember-aupac-typeahead`
 
 ## aupac-ember-data-typeahead
-The `aupac-ember-data-typeahead` component is an extension of the more generic `aupac-typeahead` and assumes you are using ember-data to retrieve you data remotely.  This allows ember-data user to streamline the use of this component into a single line in their template.
+The `aupac-ember-data-typeahead` component is an extension of the more generic `aupac-typeahead` and assumes you are using ember-data to retrieve you data remotely.  
+This allows ember-data users to streamline the use of this component into a single line in their template.
 
 ### Component Attributes
 In addition to all the features supported by `aupac-typeahead` (see below), `aupac-ember-data-typeahead` supports the following:
 
 -  `modelClass` : (required) the dasherized form of the ember-data model you are searching for. ie 'customer-address'
--  `suggestionKey` : (default: 'model.displayName') the attribute on the model to display to the user in the suggestion list,
--  `displayKey` : (default: 'model.displayName') the attribute to display to the user when an item is selected,
+-  `suggestionKey` : (default: 'displayName') the attribute on the model to display to the user in the suggestion list,
+-  `displayKey` : (default: 'displayName') the attribute to display to the user when an item is selected,
 -  `params` : (default: {}) an object containing various query string parameters to send along with the remote request,
 
 This component has already implemented the `source`, `setValue` and `display` functions to make them compatible with ember-data.  You do not need to do so yourself.

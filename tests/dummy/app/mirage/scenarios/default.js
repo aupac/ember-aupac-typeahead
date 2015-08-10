@@ -5,8 +5,8 @@ export default function( server ) {
 
   server.createList('manager', 2);
   server.createList('sub-manager', 3);
-  server.createList('employee', 4);
-  server.createList('task', 5);
+  server.createList('employee', 50);
+  server.createList('task', 50);
   server.createList('sub-task', 6);
 
 }

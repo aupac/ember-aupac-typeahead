@@ -1,6 +1,17 @@
 export default function() {
 
-    this.get('/employees');
+    //this.get('/employees');
+    this.get('/employees', function(db, request) {
+      const search = request.queryParams.q;
+      const regex = new RegExp(`.*${search}.*`, 'i');
+      const employees = db.employees.filter(function(item) {
+        return regex.test(item.name);
+      });
+
+      return {
+        employees: employees
+      };
+    });
     this.get('/employees/:id');
 
     this.get('/managers');
@@ -12,7 +23,17 @@ export default function() {
     this.get('/subTasks', 'sub-tasks');
     this.get('/subTasks/:id', 'sub-tasks');
 
-    this.get('/tasks');
+    this.get('/tasks', function(db, request) {
+      const search = request.queryParams.q;
+      const regex = new RegExp(`.*${search}.*`, 'i');
+      const tasks = db.tasks.filter(function(item) {
+        return regex.test(item.name);
+      });
+
+      return {
+        tasks: tasks
+      };
+    });
     this.get('/tasks/:id');
 
   // These comments are here to help you get started. Feel free to delete them.
