@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import DS from 'ember-data';
 
-const {computed, observer, isNone, Handlebars, inject, run, debug, Component, on} = Ember;
+const {computed, observer, isNone, Handlebars, run, debug, Component} = Ember;
 
 const Key = {
   BACKSPACE : 8,

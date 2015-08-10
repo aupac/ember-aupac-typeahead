@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import AupacTypeahead from './aupac-typeahead';
 
-const {isNone, inject, computed, observer, Handlebars, on} = Ember;
+const {isNone, inject, computed, observer, Handlebars} = Ember;
 
 export default AupacTypeahead.extend({
 
@@ -16,7 +16,7 @@ export default AupacTypeahead.extend({
   display : computed(function() {
     return (model) => {
       return model.get(this.get('displayKey'));
-    }
+    };
   }),
 
   compiledSuggestionTemplate : computed(function() {
@@ -70,7 +70,7 @@ export default AupacTypeahead.extend({
         });
         asyncResults(emberDataModels);
       });
-    }
+    };
   })
 
 });
