@@ -25,6 +25,6 @@ module.exports = {
 
   },
   afterInstall: function() {
-    return this.addBowerPackageToProject('typeahead.js');
+    return this.addBowerPackageToProject('typeahead.js', '~0.11.1');
   }
 };

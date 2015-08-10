@@ -89,7 +89,7 @@ export default Component.extend({
           },
           notFound: function (query) {
             const item = Component.create({
-              query: model,
+              query: query,
               layout: self.get('compiledNotFoundTemplate')
             }).createElement();
             return item.element;
@@ -156,10 +156,10 @@ export default Component.extend({
 
   },
 
-  selectionUpdated : observer('_selection',function() {
+  selectionUpdated : observer('_selection', '_typeahead',function() {
     const selection = this.get('_selection');
     if(isNone(selection)) {
-      this.get('_typeahead').typeahead('val', '');
+      this.setValue(null);
     } else {
       this.setValue(selection);
     }

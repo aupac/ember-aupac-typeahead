@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import AupacTypeahead from './aupac-typeahead';
 
-const {isNone, inject, computed, observer} = Ember;
+const {isNone, inject, computed, observer, Handlebars, on} = Ember;
 
 export default AupacTypeahead.extend({
 
@@ -10,12 +10,17 @@ export default AupacTypeahead.extend({
   displayKey : 'displayName',
   params : {},
   async : true,
-  suggestionTemplate : `<div class='typeahead-suggestion'>{{model.displayName}}</div>`,
   pendingTemplate : `<div class='tt-suggestion'>Loading...</div>`,
+
   display : computed(function() {
     return (model) => {
       return model.get(this.get('displayKey'));
     }
+  }),
+
+  compiledSuggestionTemplate : computed(function() {
+    const suggestionKey = this.get('suggestionKey');
+    return Handlebars.compile(this.get('suggestionTemplate') || `<div class='typeahead-suggestion'>{{model.${suggestionKey}}}</div>`);
   }),
 
   setValue : function(selection) {
@@ -30,10 +35,10 @@ export default AupacTypeahead.extend({
     }
   },
 
-  selectionUpdated : observer('_selection.id',function() {
+  selectionUpdated : observer('_selection.id', '_typeahead', function() {
     const selection = this.get('_selection');
     if(isNone(selection)) {
-      this.get('_typeahead').typeahead('val', '');
+      this.setValue(null);
     } else {
       this.setValue(selection);
     }
@@ -48,7 +53,6 @@ export default AupacTypeahead.extend({
     if(isNone(this.get('modelClass'))) {
       throw new Error('modelClass must be supplied to aupac-typeahead');
     }
-
   },
 
   source : computed(function() {
