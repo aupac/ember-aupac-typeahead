@@ -10,6 +10,7 @@ export default AupacTypeahead.extend({
   displayKey : 'displayName',
   params : {},
   async : true,
+  queryKey : 'q',
   pendingTemplate : `<div class='tt-suggestion'>Loading...</div>`,
 
   display : computed(function() {

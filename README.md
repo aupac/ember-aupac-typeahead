@@ -23,6 +23,7 @@ In addition to all the features supported by `aupac-typeahead` (see below), `aup
 -  `suggestionKey` : (default: 'displayName') the attribute on the model to display to the user in the suggestion list,
 -  `displayKey` : (default: 'displayName') the attribute to display to the user when an item is selected,
 -  `params` : (default: {}) an object containing various query string parameters to send along with the remote request,
+-  `queryKey`: (default: 'q') the query parameter sent to the server containing the search text.
 
 This component has already implemented the `source`, `setValue` and `display` functions to make them compatible with ember-data.  You do not need to do so yourself.
 
@@ -41,9 +42,8 @@ The `aupac-typeahead` component contains no assumptions about how you are retrie
 -  `placeholder` : (default: 'Search') the placeholder text to display in the input.
 -  `action`: the selected item will be provided as the first argument.
 -  `selection` : will be set as the initial selection in the component.
--  `autoFocus`: (default: false) should thtroe control get focus on render.
--  `queryKey`: (default: 'q') the query parameter sent to the server containing the search text.
--  `setValue`: a function to set the initial value based on `selection`, signature `function(selection)`.
+-  `autoFocus`: (default: false) focus the control on render.
+-  `setValue`: a function to set the typeahead value based on `selection`, signature `function(selection)`.
     
 See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets) for a more complete description of the items below.
 -  `source` : (*required) a function to return an array of items to display to the user with the signature `function(query, syncResults, asyncResults)`. The callback functions `syncResults or asyncResults` should be called with and array of results as a parameter.
@@ -61,7 +61,7 @@ See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc
 -  `highlight`: (default: true) true if matching text be highlighted in the search results.
 -  `hint`: (default: true) true if hints be displayed in the input.
 -  `minLength`: (default: 2) the minumum number of characters before a search in performed.
--  `classNames`: (default: {}) allows you to customise the class names used in typeahead.
+-  `typeaheadClassNames`: (default: {}) allows you to customise the class names used in typeahead.
 
 #### Example
 In your template
@@ -104,7 +104,7 @@ export default Ember.Controller.extend({
 });
 ```
 
-##Using your own version of [typeahead.js](https://twitter.github.io/typeahead.js/)
+## Using your own version of [typeahead.js](https://twitter.github.io/typeahead.js/)
 You can disable the importing of typeahead.js by adding the following to your `/config/environment.js`
 
 ```javascript
@@ -115,14 +115,14 @@ You can disable the importing of typeahead.js by adding the following to your `/
 
 The current compatible typeahead.js version is *v0.11.1*
 
-##CSS Styling
+## CSS Styling
 See the [typeahead.js docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#class-names) for applying your own custom styling.
 
-##Testing
+## Testing
 
-###[ember-cli-page-object](https://github.com/san650/ember-cli-page-object) is supported
+### [ember-cli-page-object](https://github.com/san650/ember-cli-page-object) is supported
 
-TODO - better description of how to use this
+`test/pages/aupac-typeahead.js`
 
 ```javascript
 export function typeahead(selector, options) {
@@ -140,6 +140,8 @@ export function typeahead(selector, options) {
   };
 }
 ```
+
+TODO - show example
 
 
 ## Running

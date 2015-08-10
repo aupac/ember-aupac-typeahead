@@ -25,9 +25,8 @@ export default Component.extend({
   highlight: true,
   hint: true,
   minLength: 2,
-  classNames: {},
+  typeaheadClassNames: {},
   autoFocus: false,
-  queryKey : 'q',
   limit : 15,
   async : false,
   name : '',
@@ -71,7 +70,7 @@ export default Component.extend({
       highlight: this.get('highlight'),
       hint: this.get('hint'),
       minLength: this.get('minLength'),
-      classNames: this.get('classNames')
+      classNames: this.get('typeaheadClassNames')
       }, {
         component : this,
         name: this.get('name') || 'default',
@@ -122,12 +121,12 @@ export default Component.extend({
     this.set('_typeahead', t);
 
     // Set selected object
-    t.on('typeahead:autocompleted', run.bind(this, (jqEvent, suggestionObject, nameOfDatasetSuggestionBelongsTo) => {
+    t.on('typeahead:autocompleted', run.bind(this, (jqEvent, suggestionObject /*, nameOfDatasetSuggestionBelongsTo*/) => {
       this.set('_selection', suggestionObject);
       this.sendAction('action', suggestionObject);
     }));
 
-    t.on('typeahead:selected', run.bind(this, (jqEvent, suggestionObject, nameOfDatasetSuggestionBelongsTo) => {
+    t.on('typeahead:selected', run.bind(this, (jqEvent, suggestionObject /*, nameOfDatasetSuggestionBelongsTo*/) => {
       this.set('_selection', suggestionObject);
       this.sendAction('action', suggestionObject);
     }));
@@ -144,7 +143,7 @@ export default Component.extend({
       }
     }));
 
-    t.on('focusout', run.bind(this, (jqEvent) => {
+    t.on('focusout', run.bind(this, (/*jqEvent*/) => {
       //the user has now left the control, update display with current binding or reset to blank
       const model = this.get('_selection');
       if (model) {
