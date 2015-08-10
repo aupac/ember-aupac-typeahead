@@ -1,5 +1,7 @@
 # ember-aupac-typeahead
 
+![alt tag](https://github.com/aupac/ember-aupac-typeahead/blob/master/example.jpg)
+
 A [typeahead.js](https://twitter.github.io/typeahead.js/) autocomplete for ember.
  - supports any datasource let it be local or remote.
  - explicit support for ember-data via the `aupac-ember-data-typeahead` component.
