@@ -1,8 +1,9 @@
 # ember-aupac-typeahead
 
-[typeahead.js](https://twitter.github.io/typeahead.js/) autocomplete for ember.
- - Supports ember-data.
- - Very customisable to meet your needs.
+An [typeahead.js](https://twitter.github.io/typeahead.js/) autocomplete for ember.
+ - supports any datasource let it be local or remote.
+ - explicit support for ember-data via the `aupac-ember-data-typeahead` component.
+ - very customisable to meet your needs.
  
 Demo [HERE](http://aupac.github.io/ember-aupac-typeahead/)
 
@@ -11,13 +12,12 @@ Demo [HERE](http://aupac.github.io/ember-aupac-typeahead/)
 `ember install ember-aupac-typeahead`
 
 ## aupac-ember-data-typeahead
-The `aupac-ember-data-typeahead` component is an extension of the more generic `aupac-typeahead` and assumes you are using ember-data to retrieve you data remotely.  
-This allows ember-data users to streamline the use of this component into a single line in their template.
+The `aupac-ember-data-typeahead` component is an extension of the more generic `aupac-typeahead` and assumes you are using ember-data to retrieve you data remotely. This allows ember-data users to streamline the use of this component into a single line of code in their template.
 
 ### Component Attributes
 In addition to all the features supported by `aupac-typeahead` (see below), `aupac-ember-data-typeahead` supports the following:
 
--  `modelClass` : (required) the dasherized form of the ember-data model you are searching for. ie 'customer-address'
+-  `modelClass` : (*required) the dasherized form of the ember-data model you are searching for. ie 'customer-address'
 -  `suggestionKey` : (default: 'displayName') the attribute on the model to display to the user in the suggestion list,
 -  `displayKey` : (default: 'displayName') the attribute to display to the user when an item is selected,
 -  `params` : (default: {}) an object containing various query string parameters to send along with the remote request,
@@ -44,16 +44,16 @@ The `aupac-typeahead` component contains no assumptions about how you are retrie
 -  `setValue`: a function to set the initial value based on `selection`, signature `function(selection)`.
     
 See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets) for a more complete description of the items below.
--  `source` : a function to return an array of items to display to the user with the signature `function(query, syncResults, asyncResults)`.
--  `async` : (default: false) true if the returned data asynchronous.
+-  `source` : (*required) a function to return an array of items to display to the user with the signature `function(query, syncResults, asyncResults)`. The callback functions `syncResults or asyncResults` should be called with and array of results as a parameter.
+-  `async` : (default: false) true if the returned data is asynchronous.
 -  `name` : (default: 'default') the name of the dataset.
 -  `limit` : (default: 15) the maximum number of results to display to the user.
 -  `display` : (default: will display the returned item as is) function that displays the selected item to the user, signature `function(model)`.
--  `suggestionTemplate` : a handlebars template used for suggestions, attribute bindings should be specified under the model object. ie `{{model.firstName}}`.
--  `notFoundTemplate` : a template that is rendered when no results are found.
--  `pendingTemplate` :  a template that is rendered when loading the result set but not yet resolved.
--  `headerTemplate` : a template displayed at the top of the search results.
--  `footerTemplate` : a template displayed at the bottom of the search results.  
+-  `suggestionTemplate` : an HTMLBars template used for suggestions, attribute bindings should be specified under the model object. ie `{{model.firstName}}`.
+-  `notFoundTemplate` : an HTMLBars template that is rendered when no results are found.
+-  `pendingTemplate` :  an HTMLBars template that is rendered when loading the result set but not yet resolved.
+-  `headerTemplate` : an HTMLBars template displayed at the top of the search results.
+-  `footerTemplate` : an HTMLBars template displayed at the bottom of the search results.  
           
 See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#options) for a more complete description of the items below.
 -  `highlight`: (default: true) true if matching text be highlighted in the search results.
