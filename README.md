@@ -115,6 +115,15 @@ You can disable the importing of typeahead.js by adding the following to your `/
 
 The current compatible typeahead.js version is *v0.11.1*
 
+## HTMLBars template compilation
+This addon relies on client side HTMLBars template compilation, the addon will automatically include ember-template-compiler in your app unless you pass `includeTemplateCompiler: false`
+
+```javascript
+'ember-aupac-typeahead' : {
+  includeTemplateCompiler: false
+}
+```
+
 ## CSS Styling
 See the [typeahead.js docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#class-names) for applying your own custom styling.
 
