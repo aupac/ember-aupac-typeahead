@@ -100,7 +100,7 @@ export default Ember.Controller.extend({
   country : null,
   countrySource : function(query, syncResults, asyncResults) {
     const regex = new RegExp(`.*${query}.*`, 'i');
-    const results = countries.filter(function(item, index, enumerable) {
+    const results = countries.filter((item, index, enumerable) => {
       return regex.test(item);
     })
     syncResults(results);
