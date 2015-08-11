@@ -18,7 +18,7 @@ Demo [HERE](http://aupac.github.io/ember-aupac-typeahead/)
  * `ember-data` > 1.13.x if using the `aupac-ember-data-typeahead` component
  * `ember.js` > 1.13.x
 
-## aupac-ember-data-typeahead
+# `aupac-ember-data-typeahead` component
 The `aupac-ember-data-typeahead` component is an extension of the more generic `aupac-typeahead` and assumes you're using ember-data to retrieve your data remotely. This allows ember-data users to streamline the use of this component into a single line of code in their template.
 
 ### Component Attributes
@@ -39,7 +39,7 @@ This component has already implemented the `source`, `setValue` and `display` fu
 
 The above is all you need to have a fully functional autocomplete search in your page.  It would create an input that allows you to search for tasks and when selected would update the `selection` property on your controller.
 
-## aupac-typeahead
+# `aupac-typeahead` component
 The `aupac-typeahead` component contains no assumptions about how you're retrieving your data.  Both local and remote suggestions are supported.
 
 ### Component Attributes
