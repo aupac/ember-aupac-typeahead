@@ -5,25 +5,33 @@ const {isNone, inject, computed, observer, Handlebars} = Ember;
 
 export default AupacTypeahead.extend({
 
-  modelClass : null,
-  suggestionKey : 'displayName',
-  displayKey : 'displayName',
-  params : {},
-  async : true,
-  queryKey : 'q',
-  pendingTemplate : `<div class='tt-suggestion'>Loading...</div>`,
+  modelClass : null, //@public
+  suggestionKey : 'displayName', //@public
+  displayKey : 'displayName', //@public
+  params : {}, //@public
+  async : true, //@public
+  queryKey : 'q', //@public
 
+  /**
+   * @Override
+   */
   display : computed(function() {
     return (model) => {
       return model.get(this.get('displayKey'));
     };
   }),
 
+  /**
+   * @Override
+   */
   compiledSuggestionTemplate : computed(function() {
     const suggestionKey = this.get('suggestionKey');
     return Handlebars.compile(this.get('suggestionTemplate') || `<div class='typeahead-suggestion'>{{model.${suggestionKey}}}</div>`);
   }),
 
+  /**
+   * @Override
+   */
   setValue : function(selection) {
     const displayKey = this.get('displayKey');
     const modelClass = this.get('modelClass');
@@ -36,18 +44,12 @@ export default AupacTypeahead.extend({
     }
   },
 
-  selectionUpdated : observer('_selection.id', '_typeahead', function() {
-    const selection = this.get('_selection');
-    if(isNone(selection)) {
-      this.setValue(null);
-    } else {
-      this.setValue(selection);
-    }
-  }),
-
   //private
   store : inject.service('store'),
 
+  /**
+   * @Override
+   */
   init : function() {
     this._super(...arguments);
 
@@ -56,6 +58,9 @@ export default AupacTypeahead.extend({
     }
   },
 
+  /**
+   * @Override
+   */
   source : computed(function() {
     const _this = this;
     return function (query, syncResults, asyncResults) {

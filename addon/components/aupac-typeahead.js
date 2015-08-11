@@ -12,26 +12,37 @@ export default Component.extend({
   tagName : 'input',
   classNames: ['aupac-typeahead'],
   attributeBindings : ['disabled','placeholder'],
-  disabled : false,
-  placeholder : 'Search',
+  disabled : false, //@public
+  placeholder : 'Search', //@public
 
   //Actions
-  action: Ember.K, // action to fire on change
-  selection : null,
-  source : Ember.K,
+  action: Ember.K, //@public
+  selection : null, //@public
+  source : Ember.K, //@public
 
   //typeahead.js Customizations
-  highlight: true,
-  hint: true,
-  minLength: 2,
-  typeaheadClassNames: {},
-  autoFocus: false,
-  limit : 15,
-  async : false,
-  name : '',
-  display : function(model) {
-    return model;
+  highlight: true, //@public
+  hint: true, //@public
+  minLength: 2, //@public
+  typeaheadClassNames: {}, //@public
+  autoFocus: false, //@public
+  limit : 15, //@public
+  async : false, //@public
+  name : '', //@public
+
+  /**
+   * @public
+   * @param selection the item selected by the user
+   * @returns {*}
+   */
+  display : function(selection) {
+    return selection;
   },
+
+  /**
+   * @public
+   * @param selection the item selected by the user
+   */
   setValue : function(selection) {
     if(selection) {
       this.get('_typeahead').typeahead('val', selection);
@@ -41,11 +52,12 @@ export default Component.extend({
   },
 
   //HtmlBars Templates
-  suggestionTemplate : null,
-  notFoundTemplate : null,
-  pendingTemplate :  null,
-  headerTemplate : null,
-  footerTemplate : null,
+
+  suggestionTemplate : null,  //@public
+  notFoundTemplate : null,  //@public
+  pendingTemplate :  null,  //@public
+  headerTemplate : null,  //@public
+  footerTemplate : null,  //@public
 
   //Private
   _typeahead: null,
