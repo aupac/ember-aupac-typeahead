@@ -18,10 +18,10 @@ Demo [HERE](http://aupac.github.io/ember-aupac-typeahead/)
  * `ember-data` > 1.13.x if using the `aupac-ember-data-typeahead` component
  * `ember.js` > 1.13.x
 
-# `aupac-ember-data-typeahead` component
+## `aupac-ember-data-typeahead` component
 The `aupac-ember-data-typeahead` component is an extension of the more generic `aupac-typeahead` and assumes you're using ember-data to retrieve your data remotely. This allows ember-data users to streamline the use of this component into a single line of code in their template.
 
-### Component Attributes
+#### Component Attributes
 In addition to all the features supported by `aupac-typeahead` (see below), `aupac-ember-data-typeahead` supports the following:
 
 -  `modelClass` : (*required) the dasherized form of the ember-data model you're searching for. ie 'customer-address'
@@ -32,17 +32,17 @@ In addition to all the features supported by `aupac-typeahead` (see below), `aup
 
 This component has already implemented the `source`, `setValue` and `display` functions to make them compatible with ember-data.  You do not need to do so yourself.
 
-### Usage example
+#### Usage example
 ```javascript
 {{aupac-ember-data-typeahead modelClass='task' action=(action (mut selection))}}
 ```
 
 The above is all you need to have a fully functional autocomplete search in your page.  It would create an input that allows you to search for tasks and when selected would update the `selection` property on your controller.
 
-# `aupac-typeahead` component
+## `aupac-typeahead` component
 The `aupac-typeahead` component contains no assumptions about how you're retrieving your data.  Both local and remote suggestions are supported.
 
-### Component Attributes
+#### Component Attributes
 -  `disabled` : (deafult: false) true if the control should be disabled.
 -  `placeholder` : (default: 'Search') the placeholder text to display in the input.
 -  `action`: the selected item will be provided as the first argument.
@@ -68,7 +68,7 @@ See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc
 -  `minLength`: (default: 2) the minumum number of characters before a search in performed.
 -  `typeaheadClassNames`: (default: {}) allows you to customise the class names used in typeahead.
 
-#### Example
+##### Example
 In your template
 ```javascript
     {{aupac-typeahead action=(action (mut country))
@@ -134,7 +134,7 @@ See the [typeahead.js docs](https://github.com/twitter/typeahead.js/blob/master/
 
 ## Testing
 
-### [ember-cli-page-object](https://github.com/san650/ember-cli-page-object) is supported
+#### [ember-cli-page-object](https://github.com/san650/ember-cli-page-object) is supported
 
 `test/pages/aupac-typeahead.js`
 
