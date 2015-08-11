@@ -13,6 +13,11 @@ Demo [HERE](http://aupac.github.io/ember-aupac-typeahead/)
 
 `ember install ember-aupac-typeahead`
 
+## Prerequisites
+
+ * ember-data > 1.13.x if using the aupac-ember-data-typeahead component
+ * ember.js > 1.13.x
+
 ## aupac-ember-data-typeahead
 The `aupac-ember-data-typeahead` component is an extension of the more generic `aupac-typeahead` and assumes you are using ember-data to retrieve you data remotely. This allows ember-data users to streamline the use of this component into a single line of code in their template.
 
