@@ -1,7 +1,7 @@
 {
   "name": "ember-aupac-typeahead",
-  "version": "0.0.3",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.0.4",
+  "description": "typeahead.js for ember",
   "directories": {
     "doc": "doc",
     "test": "tests"
