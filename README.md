@@ -45,10 +45,10 @@ The `aupac-typeahead` component contains no assumptions about how you're retriev
 #### Component Attributes
 -  `disabled` : (deafult: false) true if the control should be disabled.
 -  `placeholder` : (default: 'Search') the placeholder text to display in the input.
--  `action`: the selected item will be provided as the first argument.
--  `selection` : will be set as the initial selection in the component.
+-  `action`: (*required) the selected item will be provided as the first argument.
+-  `selection` : (default: null) will be set as the initial selection in the component.
 -  `autoFocus`: (default: false) focus the control on render.
--  `setValue`: a function to set the typeahead value based on `selection`, signature `function(selection)`.
+-  `setValue`: (default: sets the value as is) a function to set the typeahead value based on the users `selection`, signature `function(selection)`.
     
 See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets) for a more complete description of the items below.
 -  `source` : (*required) a function to return an array of items to display to the user with the signature `function(query, syncResults, asyncResults)`. The callback functions `syncResults or asyncResults` should be called with and array of results as a parameter.
