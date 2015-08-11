@@ -10,17 +10,16 @@ module.exports = {
     var config = projectConfig['ember-aupac-typeahead'] ||
       {
 //        includeCss: true,
-        includeTypeahead: true
+        includeTypeahead: true,
+        includeTemplateCompiler: true
       };
 
-    ////Typeahead.js
-    //if (config.includeCss) {
-    //  app.import(app.vendorDirectory + '/ember/ember-template-compiler.js');
-    //}
+    if (config.includeTemplateCompiler) {
+      app.import(app.bowerDirectory + '/ember/ember-template-compiler.js');
+    }
 
     if (config.includeTypeahead) {
-      app.import(app.bowerDirectory + '/typeahead.js/dist/typeahead.bundle.min.js');
-      app.import(app.bowerDirectory + '/ember/ember-template-compiler.js');
+      app.import(app.bowerDirectory + '/typeahead.js/dist/typeahead.jquery.min.js');
     }
 
   },
