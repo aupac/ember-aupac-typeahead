@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import EmberValidations from 'ember-validations';
 
 const {computed} = Ember;
 
@@ -18,7 +19,7 @@ const countries = Ember.A(["Afghanistan","Albania","Algeria","Andorra","Angola",
   "Turkey","Turkmenistan","Turks &amp; Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Venezuela","Vietnam","Virgin Islands (US)",
   "Yemen","Zambia","Zimbabwe"]);
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(EmberValidations, {
 
   //Country Search
   country : null,
@@ -37,9 +38,19 @@ export default Ember.Controller.extend({
   task : null,
   initialTask : computed(function() {
     return this.store.findRecord('task', 3);
-  })
+  }),
 
 
-
+  validations: {
+    country: {
+      presence: true
+    },
+    'employee': {
+      presence: true
+    },
+    'task': {
+      presence: true
+    }
+  }
 
 });

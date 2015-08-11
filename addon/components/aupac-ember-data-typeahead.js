@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import AupacTypeahead from './aupac-typeahead';
 
-const {isNone, inject, computed, observer, Handlebars} = Ember;
+const {isNone, inject, computed, Handlebars} = Ember;
 
 export default AupacTypeahead.extend({
 

@@ -9,15 +9,15 @@
           </div>
 
           <div class="col-xs-12">
-              <div class="input-group">
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                {{aupac-typeahead action=(action (mut country))
-                  class='form-control'
-                  source=countrySource
-                  placeholder='Search for a country'
-                }}
-              </div>
+            {{#aupac-control label="Country" mandatory=true errors=errors.country leftIcon="glyphicon glyphicon-search"}}
+              {{aupac-typeahead action=(action (mut country))
+              class='form-control'
+              source=countrySource
+              placeholder='Search for a country'
+              }}
+            {{/aupac-control}}
           </div>
+
 
       </div>
   </div>
@@ -32,15 +32,15 @@
           </div>
 
           <div class="col-xs-12">
-              <div class="input-group">
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                  {{aupac-ember-data-typeahead action=(action (mut employee))
-                    class='form-control'
-                    modelClass='employee'
-                    placeholder='Type employee...'
-                  }}
-              </div>
+            {{#aupac-control label="Employee" mandatory=true errors=errors.employee leftIcon="glyphicon glyphicon-search"}}
+              {{aupac-ember-data-typeahead action=(action (mut employee))
+              class='form-control'
+              modelClass='employee'
+              placeholder='Type employee...'
+              }}
+            {{/aupac-control}}
           </div>
+
 
       </div>
   </div>
@@ -54,15 +54,15 @@
           </div>
 
           <div class="col-xs-12">
-              <div class="input-group">
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                {{aupac-ember-data-typeahead action=(action (mut task))
-                  selection=initialTask
-                  class='form-control'
-                  modelClass='task'
-                  placeholder='Type task...'
-                }}
-              </div>
+
+            {{#aupac-control label="Task" mandatory=true errors=errors.task leftIcon="glyphicon glyphicon-search"}}
+              {{aupac-ember-data-typeahead action=(action (mut task))
+              selection=initialTask
+              class='form-control'
+              modelClass='task'
+              placeholder='Type task...'
+              }}
+            {{/aupac-control}}
           </div>
 
       </div>
