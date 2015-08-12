@@ -11,9 +11,10 @@ export default Component.extend({
   //input tag attributes
   tagName : 'input',
   classNames: ['aupac-typeahead'],
-  attributeBindings : ['disabled','placeholder'],
+  attributeBindings : ['disabled','placeholder', 'name'],
   disabled : false, //@public
   placeholder : 'Search', //@public
+  name : '', //@public
 
   //Actions
   action: Ember.K, //@public
@@ -28,7 +29,7 @@ export default Component.extend({
   autoFocus: false, //@public
   limit : 15, //@public
   async : false, //@public
-  name : '', //@public
+  datasetName : '', //@public
 
   /**
    * @public
@@ -84,7 +85,7 @@ export default Component.extend({
       classNames: this.get('typeaheadClassNames')
       }, {
         component : this,
-        name: this.get('name') || 'default',
+        name: this.get('datasetName') || 'default',
         display: this.get('display'),
         async: this.get('async'),
         limit: this.get('limit'),

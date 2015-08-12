@@ -45,6 +45,7 @@ The `aupac-typeahead` component contains no assumptions about how you're retriev
 #### Component Attributes
 -  `disabled` : (deafult: false) true if the control should be disabled.
 -  `placeholder` : (default: 'Search') the placeholder text to display in the input.
+-  `name` : (default: '') the name of the typeahead input.
 -  `action`: (*required) the selected item will be provided as the first argument.
 -  `selection` : (default: null) will be set as the initial selection in the component.
 -  `autoFocus`: (default: false) focus the control on render.
@@ -53,7 +54,7 @@ The `aupac-typeahead` component contains no assumptions about how you're retriev
 See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets) for a more complete description of the items below.
 -  `source` : (*required) a function to return an array of items to display to the user with the signature `function(query, syncResults, asyncResults)`. The callback functions `syncResults or asyncResults` should be called with and array of results as a parameter.
 -  `async` : (default: false) true if the returned data is asynchronous.
--  `name` : (default: 'default') the name of the dataset.
+-  `datasetName` : (default: 'default') the name of the dataset.
 -  `limit` : (default: 15) the maximum number of results to display to the user.
 -  `display` : (default: will display the returned item as is) function that displays the selected item to the user, signature `function(model)`.
 -  `suggestionTemplate` : an HTMLBars template used for suggestions, attribute bindings should be specified under the model object. ie `{{model.firstName}}`.
