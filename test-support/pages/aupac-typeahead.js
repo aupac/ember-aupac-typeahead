@@ -1,6 +1,7 @@
 import PageObject from '../../tests/page-object';
 
 const {
+  value,
   customHelper,
   collection,
   clickable
@@ -8,7 +9,7 @@ const {
 
 export default function typeahead(selector, options) {
   return {
-    search : function(search) {
+    search(search) {
       $(selector).val(search).trigger('input');
     },
     suggestions : collection({
@@ -17,6 +18,7 @@ export default function typeahead(selector, options) {
       item: {
         select: clickable()
       }
-    })
+    }),
+    value : value(selector)
   };
 }
