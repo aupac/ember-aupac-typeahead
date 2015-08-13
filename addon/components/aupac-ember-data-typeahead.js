@@ -33,14 +33,18 @@ export default AupacTypeahead.extend({
    * @Override
    */
   setValue : function(selection) {
-    const displayKey = this.get('displayKey');
-    const modelClass = this.get('modelClass');
-    if(selection && selection.get('id')) {
-      this.get('store').findRecord(modelClass, selection.get('id')).then((model) => {
-        this.get('_typeahead').typeahead('val', model.get(displayKey));
-      });
+    if (typeof selection === 'string') {
+      this.get('_typeahead').typeahead('val', selection);
     } else {
-      this.get('_typeahead').typeahead('val', '');
+      const displayKey = this.get('displayKey');
+      const modelClass = this.get('modelClass');
+      if(selection && selection.get('id')) {
+        this.get('store').findRecord(modelClass, selection.get('id')).then((model) => {
+          this.get('_typeahead').typeahead('val', model.get(displayKey));
+      });
+      } else {
+        this.get('_typeahead').typeahead('val', '');
+      }
     }
   },
 
