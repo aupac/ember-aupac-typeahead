@@ -16,7 +16,7 @@ module.exports = {
     };
 
     var projectConfig = this.project.config(app.env);
-    var userConfig = projectConfig['ember-aupac-typeahead'] || deafults;
+    var userConfig = projectConfig['ember-aupac-typeahead'] || defaults;
 
     var config = mergeConfig(defaults, userConfig);
 
