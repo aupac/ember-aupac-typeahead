@@ -6,7 +6,8 @@ function mergeConfig(obj1,obj2){
 }
 
 module.exports = {
-  description: 'add bower packages to project',
+  normalizeEntityName: function() {},
+  description: 'add typeahead.js to project',
 
   afterInstall: function(app) {
 
