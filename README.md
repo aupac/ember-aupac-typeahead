@@ -131,6 +131,14 @@ This addon relies on client side HTMLBars template compilation, the addon will a
 ```
 
 ## CSS Styling
+By default, Bootstrap 3 compatible css styles are included with the addon, you can disable this by adding:
+
+```javascript
+'ember-aupac-typeahead' : {
+  includeCss: false
+}
+```
+
 See the [typeahead.js docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#class-names) for applying your own custom styling.
 
 ## Testing

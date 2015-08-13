@@ -1,0 +1,1 @@
+export { default } from 'ember-aupac-typeahead/blueprints/ember-aupac-typeahead';
