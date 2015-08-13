@@ -7,7 +7,7 @@ const {
   clickable
   } = PageObject;
 
-export default function typeahead(selector, options) {
+export default function aupacTypeahead(selector, options) {
   return {
     search(search) {
       $(selector).val(search).trigger('input');
@@ -19,6 +19,12 @@ export default function typeahead(selector, options) {
         select: clickable()
       }
     }),
-    value : value(selector)
+    value : value(selector),
+    isDisabled: function() {
+      return $(selector).prop('disabled');
+    },
+    isEnabled: function() {
+      return ! $(selector).prop('disabled');
+    }
   };
 }

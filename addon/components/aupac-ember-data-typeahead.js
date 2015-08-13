@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import AupacTypeahead from './aupac-typeahead';
 
-const {isNone, inject, computed, Handlebars} = Ember;
+const {isNone, inject, computed, Handlebars, observer} = Ember;
 
 export default AupacTypeahead.extend({
 
@@ -76,6 +76,18 @@ export default AupacTypeahead.extend({
         asyncResults(emberDataModels);
       });
     };
+  }),
+
+  /**
+   * @Override
+   */
+  selectionUpdated : observer('_selection.id', '_typeahead', function() {
+    const selection = this.get('_selection');
+    if(isNone(selection)) {
+      this.setValue(null);
+    } else {
+      this.setValue(selection);
+    }
   })
 
 });
