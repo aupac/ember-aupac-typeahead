@@ -29,6 +29,7 @@ In addition to all the features supported by `aupac-typeahead` (see below), `aup
 -  `displayKey` : (default: 'displayName') the attribute to display to the user when an item is selected,
 -  `params` : (default: {}) an object containing various query string parameters to send along with the remote request,
 -  `queryKey`: (default: 'q') the query parameter sent to the server containing the search text.
+-  `selection` : (default: null) initial selection - can be an `ember-data` model (in which case the `displayKey` is used as the initial value) or a `string` which will display as is.
 
 This component has already implemented the `source`, `setValue` and `display` functions to make them compatible with ember-data.  You do not need to do so yourself.
 
