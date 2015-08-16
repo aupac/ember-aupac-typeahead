@@ -1,5 +1,7 @@
 # ember-aupac-typeahead
 
+[![NPM package](https://img.shields.io/npm/v/ember-aupac-typeahead.svg)](https://www.npmjs.com/package/ember-aupac-typeahead) [![Build Status](https://img.shields.io/travis/aupac/ember-aupac-typeahead.svg)](https://travis-ci.org/aupac/ember-aupac-typeahead) [![Ember Observer Score](http://emberobserver.com/badges/ember-aupac-typeahead.svg)](http://emberobserver.com/addons/ember-aupac-typeahead)
+
 ![alt tag](https://github.com/aupac/ember-aupac-typeahead/blob/master/example.jpg)
 
 A [typeahead.js](https://twitter.github.io/typeahead.js/) autocomplete for ember.
