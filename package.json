@@ -58,6 +58,7 @@
     "ember-cli-htmlbars": "0.7.6"
   },
   "ember-addon": {
-    "configPath": "tests/dummy/config"
+    "configPath": "tests/dummy/config",
+    "demoURL": "http://aupac.github.io/ember-aupac-typeahead/"
   }
 }
