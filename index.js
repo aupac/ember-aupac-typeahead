@@ -28,10 +28,6 @@ module.exports = {
       app.import('vendor/aupac-typeahead.css');
     }
 
-    if (config.includeTemplateCompiler) {
-      app.import(app.bowerDirectory + '/ember/ember-template-compiler.js');
-    }
-
     if (config.includeTypeahead) {
       app.import(app.bowerDirectory + '/typeahead.js/dist/typeahead.jquery.min.js');
     }

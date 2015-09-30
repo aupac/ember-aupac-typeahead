@@ -1,6 +1,11 @@
 import Ember from 'ember';
+import footerTemplate from '../templates/components/aupac-typeahead/footer';
+import headerTemplate from '../templates/components/aupac-typeahead/header';
+import notFoundTemplate from '../templates/components/aupac-typeahead/not-found';
+import pendingTemplate from '../templates/components/aupac-typeahead/pending';
+import suggestionTemplate from '../templates/components/aupac-typeahead/suggestion';
 
-const {computed, observer, isNone, Handlebars, run, debug, Component} = Ember;
+const {computed, observer, isNone, run, debug, Component} = Ember;
 
 const Key = {
   BACKSPACE : 8,
@@ -174,7 +179,7 @@ export default Component.extend({
       this.set('_selection', null);
     }
   }),
-  
+
   selectionUpdated: observer('_selection', '_typeahead',function() {
     const selection = this.get('_selection');
     if(isNone(selection)) {
@@ -185,23 +190,23 @@ export default Component.extend({
   }),
 
   compiledSuggestionTemplate : computed(function() {
-    return Handlebars.compile(this.get('suggestionTemplate') || `<div class='typeahead-suggestion'>{{model}}</div>`);
+    return this.get('suggestionTemplate') || suggestionTemplate;
   }),
 
   compiledNotFoundTemplate : computed(function() {
-    return Handlebars.compile(this.get('notFoundTemplate') || `<div class='typeahead-not-found'>No results found.</div>`);
+    return this.get('notFoundTemplate') || notFoundTemplate;
   }),
 
   compiledPendingTemplate : computed(function() {
-    return Handlebars.compile(this.get('pendingTemplate') || `<div class='typeahead-pending'>Loading...</div>`);
+    return this.get('pendingTemplate') || pendingTemplate;
   }),
 
   compiledHeaderTemplate : computed(function() {
-    return Handlebars.compile(this.get('headerTemplate') || `<div class='typeahead-header'></div>`);
+    return this.get('headerTemplate') || headerTemplate;
   }),
 
   compiledFooterTemplate : computed(function() {
-    return Handlebars.compile(this.get('footerTemplate') || `<div class='typeahead-footer'></div>`);
+    return this.get('footerTemplate') || footerTemplate;
   }),
 
   willDestroyElement : function() {

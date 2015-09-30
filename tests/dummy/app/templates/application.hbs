@@ -1,7 +1,27 @@
 <div class="container">
   <h2>aupac-typeahead examples</h2>
   <div class="panel panel-default">
-      <div class="panel-heading"><h4>Searching a local array</h4></div>
+    <div class="panel-heading"><h4>Searching a local array</h4></div>
+    <div class="panel-body">
+
+      <div class="col-xs-12">
+          <h5>Selected Country: {{country}}</h5>
+      </div>
+
+      <div class="col-xs-12">
+        {{#aupac-control label="Country" mandatory=true errors=errors.country leftIcon="glyphicon glyphicon-search"}}
+          {{aupac-typeahead action=(action (mut country))
+          class='form-control'
+          source=countrySource
+          placeholder='Search for a country'
+          }}
+        {{/aupac-control}}
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+      <div class="panel-heading"><h4>Customise your templates</h4></div>
       <div class="panel-body">
 
           <div class="col-xs-12">
@@ -14,11 +34,14 @@
               class='form-control'
               source=countrySource
               placeholder='Search for a country'
+              suggestionTemplate=suggestionTemplate
+              headerTemplate=headerTemplate
+              footerTemplate=footerTemplate
+              notFoundTemplate=notFoundTemplate
+              pendingTemplate=pendingTemplate
               }}
             {{/aupac-control}}
           </div>
-
-
       </div>
   </div>
 

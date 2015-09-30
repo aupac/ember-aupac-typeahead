@@ -1,5 +1,10 @@
 import Ember from 'ember';
 import EmberValidations from 'ember-validations';
+import suggestionTemplate from '../templates/customised/suggestion';
+import headerTemplate from '../templates/customised/header';
+import footerTemplate from '../templates/customised/footer';
+import notFoundTemplate from '../templates/customised/not-found';
+import pendingTemplate from '../templates/customised/pending';
 
 const {computed} = Ember;
 
@@ -40,6 +45,11 @@ export default Ember.Controller.extend(EmberValidations, {
     return this.store.findRecord('task', 3);
   }),
 
+  suggestionTemplate: suggestionTemplate,
+  headerTemplate: headerTemplate,
+  footerTemplate: footerTemplate,
+  notFoundTemplate: notFoundTemplate,
+  pendingTemplate: pendingTemplate,
 
   validations: {
     country: {

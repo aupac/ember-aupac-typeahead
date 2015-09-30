@@ -1,12 +1,12 @@
 import Ember from 'ember';
 import AupacTypeahead from './aupac-typeahead';
+import suggestionTemplate from '../templates/components/aupac-ember-data-typeahead/suggestion';
 
-const {isNone, inject, computed, Handlebars, observer} = Ember;
+const {isNone, inject, computed, observer} = Ember;
 
 export default AupacTypeahead.extend({
 
   modelClass : null, //@public
-  suggestionKey : 'displayName', //@public
   displayKey : 'displayName', //@public
   params : {}, //@public
   async : true, //@public
@@ -25,8 +25,7 @@ export default AupacTypeahead.extend({
    * @Override
    */
   compiledSuggestionTemplate : computed(function() {
-    const suggestionKey = this.get('suggestionKey');
-    return Handlebars.compile(this.get('suggestionTemplate') || `<div class='typeahead-suggestion'>{{model.${suggestionKey}}}</div>`);
+    return this.get('suggestionTemplate') || suggestionTemplate;
   }),
 
   /**
