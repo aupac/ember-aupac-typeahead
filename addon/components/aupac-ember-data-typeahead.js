@@ -15,6 +15,9 @@ export default AupacTypeahead.extend({
   // @Override
   suggestionTemplate,
 
+  //private
+  store : inject.service('store'),
+
   /**
    * @Override
    */
@@ -23,8 +26,6 @@ export default AupacTypeahead.extend({
       return model.get(this.get('displayKey'));
     };
   }),
-
-
 
   /**
    * @Override
@@ -49,9 +50,6 @@ export default AupacTypeahead.extend({
       }
     }
   },
-
-  //private
-  store : inject.service('store'),
 
   /**
    * @Override

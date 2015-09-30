@@ -43,6 +43,13 @@ export default Component.extend({
   headerTemplate,  //@public
   footerTemplate,  //@public
 
+  //Private
+  _typeahead: null,
+
+  // shadow the passed-in `selection` to avoid
+  // leaking changes to it via a 2-way binding
+  _selection: computed.reads('selection'),
+
   /**
    * @public
    * @param selection - the item selected by the user
@@ -63,13 +70,6 @@ export default Component.extend({
       this.get('_typeahead').typeahead('val', '');
     }
   },
-
-  //Private
-  _typeahead: null,
-
-  // shadow the passed-in `selection` to avoid
-  // leaking changes to it via a 2-way binding
-  _selection: computed.reads('selection'),
 
   didInsertElement: function () {
     this._super(...arguments);

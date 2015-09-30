@@ -26,6 +26,13 @@ const countries = Ember.A(["Afghanistan","Albania","Algeria","Andorra","Angola",
 
 export default Ember.Controller.extend(EmberValidations, {
 
+  init() {
+    this._super(...arguments);
+    this.store.findRecord('task', 3).then((task) => {
+      this.set('task', task)
+    });
+  },
+
   //Country Search
   country : null,
   countrySource : function(query, syncResults /*, asyncResults*/) {
@@ -41,9 +48,6 @@ export default Ember.Controller.extend(EmberValidations, {
 
   //Selection 2
   task : null,
-  initialTask : computed(function() {
-    return this.store.findRecord('task', 3);
-  }),
 
   isDisabled: false,
   suggestionTemplate,
@@ -51,6 +55,12 @@ export default Ember.Controller.extend(EmberValidations, {
   footerTemplate,
   notFoundTemplate,
   pendingTemplate,
+
+  actions: {
+    clearModel() {
+      this.set('task', null);
+    }
+  },
 
   validations: {
     country: {
