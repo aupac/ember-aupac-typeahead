@@ -12,6 +12,9 @@ export default AupacTypeahead.extend({
   async : true, //@public
   queryKey : 'q', //@public
 
+  // @Override
+  suggestionTemplate,
+
   /**
    * @Override
    */
@@ -21,12 +24,7 @@ export default AupacTypeahead.extend({
     };
   }),
 
-  /**
-   * @Override
-   */
-  compiledSuggestionTemplate : computed(function() {
-    return this.get('suggestionTemplate') || suggestionTemplate;
-  }),
+
 
   /**
    * @Override
@@ -38,9 +36,14 @@ export default AupacTypeahead.extend({
       const displayKey = this.get('displayKey');
       const modelClass = this.get('modelClass');
       if(selection && selection.get('id')) {
-        this.get('store').findRecord(modelClass, selection.get('id')).then((model) => {
-          this.get('_typeahead').typeahead('val', model.get(displayKey));
-      });
+        const item = this.get('store').peekRecord(modelClass, selection.get('id'));
+        if (isNone(item)) {
+          this.get('store').findRecord(modelClass, selection.get('id')).then((model) => {
+            this.get('_typeahead').typeahead('val', model.get(displayKey));
+          });
+        } else {
+          this.get('_typeahead').typeahead('val', item.get(displayKey));
+        }
       } else {
         this.get('_typeahead').typeahead('val', '');
       }

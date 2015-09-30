@@ -36,9 +36,16 @@ export default Component.extend({
   async : false, //@public
   datasetName : '', //@public
 
+  //HtmlBars Templates
+  suggestionTemplate,  //@public
+  notFoundTemplate,  //@public
+  pendingTemplate,  //@public
+  headerTemplate,  //@public
+  footerTemplate,  //@public
+
   /**
    * @public
-   * @param selection the item selected by the user
+   * @param selection - the item selected by the user
    * @returns {*}
    */
   display : function(selection) {
@@ -56,14 +63,6 @@ export default Component.extend({
       this.get('_typeahead').typeahead('val', '');
     }
   },
-
-  //HtmlBars Templates
-
-  suggestionTemplate : null,  //@public
-  notFoundTemplate : null,  //@public
-  pendingTemplate :  null,  //@public
-  headerTemplate : null,  //@public
-  footerTemplate : null,  //@public
 
   //Private
   _typeahead: null,
@@ -105,21 +104,21 @@ export default Component.extend({
           suggestion: function (model) {
             const item = Component.create({
               model: model,
-              layout: self.get('compiledSuggestionTemplate')
+              layout: self.get('suggestionTemplate')
             }).createElement();
             return item.element;
           },
           notFound: function (query) {
             const item = Component.create({
               query: query,
-              layout: self.get('compiledNotFoundTemplate')
+              layout: self.get('notFoundTemplate')
             }).createElement();
             return item.element;
           },
           pending: function (query) {
             const item = Component.create({
               query: query,
-              layout: self.get('compiledPendingTemplate')
+              layout: self.get('pendingTemplate')
             }).createElement();
             return item.element;
           },
@@ -127,7 +126,7 @@ export default Component.extend({
             const item = Component.create({
               query: query,
               suggestions: suggestions,
-              layout: self.get('compiledHeaderTemplate')
+              layout: self.get('headerTemplate')
             }).createElement();
             return item.element;
           },
@@ -135,7 +134,7 @@ export default Component.extend({
             const item = Component.create({
               query: query,
               suggestions: suggestions,
-              layout: self.get('compiledFooterTemplate')
+              layout: self.get('footerTemplate')
             }).createElement();
             return item.element;
           }
@@ -162,7 +161,7 @@ export default Component.extend({
         const value = this.get('_typeahead').typeahead('val'); //cache value
         this.set('_selection', null);
         this.sendAction('action', null);
-        this.$().typeahead('val', value); //restore the text, thus allowing the user to make corrections
+        this.setValue(value); //restore the text, thus allowing the user to make corrections
       }
     }));
 
@@ -179,12 +178,12 @@ export default Component.extend({
   },
 
   // Fix weird bug whereby changing the bound selection to null would not fire "selectionUpdated"
-  boundSelectionUpdated: observer('selection',function() {
-    const selection = this.get('selection');
-    if(isNone(selection)) {
-      this.set('_selection', null);
-    }
-  }),
+  //boundSelectionUpdated: observer('selection',function() {
+  //  const selection = this.get('selection');
+  //  if(isNone(selection)) {
+  //    this.set('_selection', null);
+  //  }
+  //}),
 
   selectionUpdated: observer('_selection', '_typeahead',function() {
     const selection = this.get('_selection');
@@ -193,26 +192,6 @@ export default Component.extend({
     } else {
       this.setValue(selection);
     }
-  }),
-
-  compiledSuggestionTemplate : computed(function() {
-    return this.get('suggestionTemplate') || suggestionTemplate;
-  }),
-
-  compiledNotFoundTemplate : computed(function() {
-    return this.get('notFoundTemplate') || notFoundTemplate;
-  }),
-
-  compiledPendingTemplate : computed(function() {
-    return this.get('pendingTemplate') || pendingTemplate;
-  }),
-
-  compiledHeaderTemplate : computed(function() {
-    return this.get('headerTemplate') || headerTemplate;
-  }),
-
-  compiledFooterTemplate : computed(function() {
-    return this.get('footerTemplate') || footerTemplate;
   }),
 
   willDestroyElement : function() {
