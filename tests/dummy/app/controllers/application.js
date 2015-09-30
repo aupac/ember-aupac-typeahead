@@ -45,6 +45,7 @@ export default Ember.Controller.extend(EmberValidations, {
     return this.store.findRecord('task', 3);
   }),
 
+  isDisabled: false,
   suggestionTemplate: suggestionTemplate,
   headerTemplate: headerTemplate,
   footerTemplate: footerTemplate,

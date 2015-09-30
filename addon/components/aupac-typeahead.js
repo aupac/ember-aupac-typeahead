@@ -78,6 +78,12 @@ export default Component.extend({
     if (this.get('autoFocus') === true) {
       this.get('_typeahead').focus();
     }
+    this.addObserver('disabled', this.disabledStateChanged);
+  },
+
+  disabledStateChanged() {
+    //Toggling the disabled attribute on the controller does not update the hint, need to do this manually.
+    this.$('input.tt-hint').prop('disabled', this.get('disabled'));
   },
 
   initializeTypeahead: function() {

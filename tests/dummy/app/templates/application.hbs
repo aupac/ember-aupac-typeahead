@@ -78,12 +78,14 @@
 
           <div class="col-xs-12">
 
+            {{input type="checkbox" checked=isDisabled}} Disabled?<br>
             {{#aupac-control label="Task" mandatory=true errors=errors.task leftIcon="glyphicon glyphicon-search"}}
               {{aupac-ember-data-typeahead action=(action (mut task))
               selection=initialTask
               class='form-control'
               modelClass='task'
               placeholder='Type task...'
+              disabled=isDisabled
               }}
             {{/aupac-control}}
           </div>
