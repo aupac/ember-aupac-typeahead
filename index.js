@@ -15,8 +15,7 @@ module.exports = {
 
     var defaults = {
       includeCss: true,
-      includeTypeahead: true,
-      includeTemplateCompiler: true
+      includeTypeahead: true
     };
 
     var projectConfig = this.project.config(app.env);

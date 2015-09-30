@@ -24,10 +24,11 @@ Demo [HERE](http://aupac.github.io/ember-aupac-typeahead/)
 The `aupac-ember-data-typeahead` component is an extension of the more generic `aupac-typeahead` and assumes you're using ember-data to retrieve your data remotely. This allows ember-data users to streamline the use of this component into a single line of code in their template.
 
 #### Component Attributes
+By default, each ember-data model supplied in `modelClass` is required to have a `displayName` (computed property or attribute) that will return a string representing the name to display in the suggestion template.  If this is not possible you can override the `suggestionTemplate` and supply something else (see below). 
+
 In addition to all the features supported by `aupac-typeahead` (see below), `aupac-ember-data-typeahead` supports the following:
 
 -  `modelClass` : (*required) the dasherized form of the ember-data model you're searching for. ie 'customer-address'
--  `suggestionKey` : (default: 'displayName') the attribute on the model to display to the user in the suggestion list,
 -  `displayKey` : (default: 'displayName') the attribute to display to the user when an item is selected,
 -  `params` : (default: {}) an object containing various query string parameters to send along with the remote request,
 -  `queryKey`: (default: 'q') the query parameter sent to the server containing the search text.
@@ -36,7 +37,8 @@ In addition to all the features supported by `aupac-typeahead` (see below), `aup
 This component has already implemented the `source`, `setValue` and `display` functions to make them compatible with ember-data.  You do not need to do so yourself.
 
 #### Usage example
-```javascript
+```html
+<!--In this case the ember-data model "task" needs a displayName attribute-->
 {{aupac-ember-data-typeahead modelClass='task' action=(action (mut selection))}}
 ```
 
@@ -60,11 +62,11 @@ See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc
 -  `datasetName` : (default: 'default') the name of the dataset.
 -  `limit` : (default: 15) the maximum number of results to display to the user.
 -  `display` : (default: will display the returned item as is) function that displays the selected item to the user, signature `function(model)`.
--  `suggestionTemplate` : an HTMLBars template used for suggestions, attribute bindings should be specified under the model object. ie `{{model.firstName}}`.
--  `notFoundTemplate` : an HTMLBars template that is rendered when no results are found.
--  `pendingTemplate` :  an HTMLBars template that is rendered when loading the result set but not yet resolved.
--  `headerTemplate` : an HTMLBars template displayed at the top of the search results.
--  `footerTemplate` : an HTMLBars template displayed at the bottom of the search results.  
+-  `suggestionTemplate` : a precompiled HTMLBars template used for suggestions, attribute bindings should be specified under the model object. ie `{{model.firstName}}`.
+-  `notFoundTemplate` : a precompiled HTMLBars template that is rendered when no results are found.
+-  `pendingTemplate` :  a precompiled HTMLBars template that is rendered when loading the result set but not yet resolved.
+-  `headerTemplate` : a precompiled HTMLBars template displayed at the top of the search results.
+-  `footerTemplate` : a precompiled HTMLBars template displayed at the bottom of the search results.  
           
 See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#options) for a more complete description of the items below.
 -  `highlight`: (default: true) true if matching text be highlighted in the search results.
@@ -113,6 +115,34 @@ export default Ember.Controller.extend({
 });
 ```
 
+## Using your own custom template
+You can override the `suggestionTemplate`, `notFoundTemplate`, `pendingTemplate`, `headerTemplate` or `footerTemplate` used by importing a `*.hbs` file and assigning to the appropriate property.
+
+For example
+```html
+{{!-- app/templates/country-templates/suggestion.hbs --}}
+<div class='typeahead-suggestion'><img src="http://www.gravatar.com/avatar/0cf15665a9146ba852bf042b0652780a?s=200" style="width: 10%; height: 10%">{{model}}</div>
+```
+
+Then in your controller
+```javascript
+import customSuggestionTemplate from '../templates/country-templates/suggestion';
+
+export default Ember.Controller.extend({
+
+  customSuggestionTemplate: customSuggestionTemplate
+
+})
+```
+
+And assign it to your template
+```html
+{{aupac-typeahead action=(action (mut country))
+... bind the custom suggestion template to the component
+suggestionTemplate=customSuggestionTemplate
+}}
+````
+
 ## Using your own version of [typeahead.js](https://twitter.github.io/typeahead.js/)
 You can disable the importing of typeahead.js by adding the following to your `/config/environment.js`
 
@@ -123,15 +153,6 @@ You can disable the importing of typeahead.js by adding the following to your `/
 ```
 
 The current compatible typeahead.js version is *v0.11.1*
-
-## HTMLBars template compilation
-This addon relies on client side HTMLBars template compilation, the addon will automatically include ember-template-compiler in your app unless you pass `includeTemplateCompiler: false`
-
-```javascript
-'ember-aupac-typeahead' : {
-  includeTemplateCompiler: false
-}
-```
 
 ## CSS Styling
 By default, Bootstrap 3 compatible css styles are included with the addon, you can disable this by adding:

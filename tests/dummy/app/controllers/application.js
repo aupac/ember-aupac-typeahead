@@ -46,11 +46,11 @@ export default Ember.Controller.extend(EmberValidations, {
   }),
 
   isDisabled: false,
-  suggestionTemplate: suggestionTemplate,
-  headerTemplate: headerTemplate,
-  footerTemplate: footerTemplate,
-  notFoundTemplate: notFoundTemplate,
-  pendingTemplate: pendingTemplate,
+  suggestionTemplate,
+  headerTemplate,
+  footerTemplate,
+  notFoundTemplate,
+  pendingTemplate,
 
   validations: {
     country: {
