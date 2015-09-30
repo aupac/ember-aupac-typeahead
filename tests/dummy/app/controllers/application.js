@@ -29,7 +29,7 @@ export default Ember.Controller.extend(EmberValidations, {
   init() {
     this._super(...arguments);
     this.store.findRecord('task', 3).then((task) => {
-      this.set('task', task)
+      this.set('task', task);
     });
   },
 
