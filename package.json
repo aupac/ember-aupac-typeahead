@@ -1,6 +1,6 @@
 {
   "name": "ember-aupac-typeahead",
-  "version": "0.0.10",
+  "version": "1.0.0",
   "description": "typeahead.js for ember",
   "directories": {
     "doc": "doc",
