@@ -178,12 +178,12 @@ export default Component.extend({
   },
 
   // Fix weird bug whereby changing the bound selection to null would not fire "selectionUpdated"
-  //boundSelectionUpdated: observer('selection',function() {
-  //  const selection = this.get('selection');
-  //  if(isNone(selection)) {
-  //    this.set('_selection', null);
-  //  }
-  //}),
+  boundSelectionUpdated: observer('selection',function() {
+    const selection = this.get('selection');
+    if(isNone(selection)) {
+      this.set('_selection', null);
+    }
+  }),
 
   selectionUpdated: observer('_selection', '_typeahead',function() {
     const selection = this.get('_selection');
