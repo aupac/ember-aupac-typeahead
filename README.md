@@ -32,7 +32,7 @@ In addition to all the features supported by `aupac-typeahead` (see below), `aup
 -  `displayKey` : (default: 'displayName') the attribute to display to the user when an item is selected,
 -  `params` : (default: {}) an object containing various query string parameters to send along with the remote request,
 -  `queryKey`: (default: 'q') the query parameter sent to the server containing the search text.
--  `selection` : (default: null) initial selection - can be an `ember-data` model (in which case the `displayKey` is used as the initial value) or a `string` which will display as is.
+-  `selection` : (default: null) initial selection - can be an `ember-data` model (in which case the `displayKey` is used as the initial value) or a `string` which will display as is. Wrap selection in `(readonly x)` helper to avoid two-way binding.
 
 This component has already implemented the `source`, `setValue` and `display` functions to make them compatible with ember-data.  You do not need to do so yourself.
 
@@ -52,7 +52,7 @@ The `aupac-typeahead` component contains no assumptions about how you're retriev
 -  `placeholder` : (default: 'Search') the placeholder text to display in the input.
 -  `name` : (default: '') the name of the typeahead input.
 -  `action`: (*required) the selected item will be provided as the first argument.
--  `selection` : (default: null) will be set as the initial selection in the component.
+-  `selection` : (default: null) will be set as the initial selection in the component. Wrap selection with helper `(readonly x)` to avoid two-way binding. 
 -  `autoFocus`: (default: false) focus the control on render.
 -  `setValue`: (default: sets the value as is) a function to set the typeahead value based on the users `selection`, signature `function(selection)`.
     
