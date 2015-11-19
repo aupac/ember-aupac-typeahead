@@ -2,7 +2,7 @@
 
 # 2.0.3
 * #6 (enhancement) added CHANGELOG.md
-* #9 **BREAKING** "Maximum call stack size exceeded" due to computed.reads('selection') in ember 2.2.  No requires the `readonly` helper on the selection `selection=(readonly model)`
+* #9 **BREAKING** "Maximum call stack size exceeded" due to computed.reads('selection') in ember 2.2.  This addon now requires the `readonly` helper on the selection `selection=(readonly model)` which is a simple mechanical refactor.
 
 # 2.0.2
 * #3 (regression) setting selection to null not working
