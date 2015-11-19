@@ -1,5 +1,8 @@
 # Master
+
+* 2.0.3
 * #6 (enhancement) added CHANGELOG.md
+* #9 **BREAKING** "Maximum call stack size exceeded" due to computed.reads('selection') in ember 2.2
 
 # 2.0.2
 * #3 (regression) setting selection to null not working
