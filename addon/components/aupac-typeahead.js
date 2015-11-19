@@ -46,9 +46,6 @@ export default Component.extend({
   //Private
   _typeahead: null,
 
-  // shadow the passed-in `selection` to avoid
-  // leaking changes to it via a 2-way binding
-  _selection: computed.reads('selection'),
 
   /**
    * @public
@@ -144,12 +141,12 @@ export default Component.extend({
 
     // Set selected object
     t.on('typeahead:autocompleted', run.bind(this, (jqEvent, suggestionObject /*, nameOfDatasetSuggestionBelongsTo*/) => {
-      this.set('_selection', suggestionObject);
+      this.set('selection', suggestionObject);
       this.sendAction('action', suggestionObject);
     }));
 
     t.on('typeahead:selected', run.bind(this, (jqEvent, suggestionObject /*, nameOfDatasetSuggestionBelongsTo*/) => {
-      this.set('_selection', suggestionObject);
+      this.set('selection', suggestionObject);
       this.sendAction('action', suggestionObject);
     }));
 
@@ -159,7 +156,7 @@ export default Component.extend({
       if (jqEvent.which === Key.BACKSPACE || jqEvent.which === Key.DELETE) {
         debug("Removing model");
         const value = this.get('_typeahead').typeahead('val'); //cache value
-        this.set('_selection', null);
+        this.set('selection', null);
         this.sendAction('action', null);
         this.setValue(value); //restore the text, thus allowing the user to make corrections
       }
@@ -167,7 +164,7 @@ export default Component.extend({
 
     t.on('focusout', run.bind(this, (/*jqEvent*/) => {
       //the user has now left the control, update display with current binding or reset to blank
-      const model = this.get('_selection');
+      const model = this.get('selection');
       if (model) {
         this.setValue(model);
       } else {
@@ -177,16 +174,9 @@ export default Component.extend({
 
   },
 
-  // Fix weird bug whereby changing the bound selection to null would not fire "selectionUpdated"
-  boundSelectionUpdated: observer('selection',function() {
-    const selection = this.get('selection');
-    if(isNone(selection)) {
-      this.set('_selection', null);
-    }
-  }),
 
-  selectionUpdated: observer('_selection', '_typeahead',function() {
-    const selection = this.get('_selection');
+  selectionUpdated: observer('selection', '_typeahead',function() {
+    const selection = this.get('selection');
     if(isNone(selection)) {
       this.setValue(null);
     } else {

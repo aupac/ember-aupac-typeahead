@@ -82,7 +82,7 @@
             <button class="btn btn-default" {{action 'clearModel'}}>Clear Model</button>
             {{#aupac-control label="Task" mandatory=true errors=errors.task leftIcon="glyphicon glyphicon-search"}}
               {{aupac-ember-data-typeahead action=(action (mut task))
-              selection=task.displayName
+              selection=(readonly task.displayName)
               class='form-control'
               modelClass='task'
               placeholder='Type task...'

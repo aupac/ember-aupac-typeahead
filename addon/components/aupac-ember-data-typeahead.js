@@ -85,8 +85,8 @@ export default AupacTypeahead.extend({
   /**
    * @Override
    */
-  selectionUpdated : observer('_selection.id', '_typeahead', function() {
-    const selection = this.get('_selection');
+  selectionUpdated : observer('selection.id', '_typeahead', function() {
+    const selection = this.get('selection');
     if(isNone(selection)) {
       this.setValue(null);
     } else {
