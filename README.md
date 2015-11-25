@@ -126,7 +126,7 @@ For example
 
 Then in your controller
 ```javascript
-import customSuggestionTemplate from '../templates/country-templates/suggestion';
+import customSuggestionTemplate from '../templates/country-templates/suggestion.hbs';
 
 export default Ember.Controller.extend({
 
