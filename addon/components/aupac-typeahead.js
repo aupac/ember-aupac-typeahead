@@ -166,16 +166,14 @@ export default Component.extend({
     t.on('focusout', run.bind(this, (/*jqEvent*/) => {
       //the user has now left the control, update display with current binding or reset to blank
       const model = this.get('selection');
-      if (model) {
+      if (this.get('allowFreeInput')) {
+        const value = this.get('_typeahead').typeahead('val');
+        this.set('selection', value);
+        this.sendAction('action', value);
+      } else if (model) {
         this.setValue(model);
       } else {
-        if (this.get('allowFreeInput')) {
-          const value = this.get('_typeahead').typeahead('val');
-          this.set('selection', value);
-          this.sendAction('action', value);
-        } else {
           this.setValue(null);
-        }
       }
     }));
 
