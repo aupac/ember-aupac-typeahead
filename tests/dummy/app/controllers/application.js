@@ -55,6 +55,7 @@ export default Ember.Controller.extend(EmberValidations, {
   footerTemplate,
   notFoundTemplate,
   pendingTemplate,
+  allowFreeInput: false,
 
   actions: {
     clearModel() {

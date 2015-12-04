@@ -55,6 +55,7 @@ The `aupac-typeahead` component contains no assumptions about how you're retriev
 -  `selection` : (default: null) will be set as the initial selection in the component. Wrap selection with helper `(readonly x)` to avoid two-way binding. 
 -  `autoFocus`: (default: false) focus the control on render.
 -  `setValue`: (default: sets the value as is) a function to set the typeahead value based on the users `selection`, signature `function(selection)`.
+-  `allowFreeInput`: (default: false) allows the user to input their own values that are not part of the option list.  Only useful if the item being selected is a String.
     
 See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets) for a more complete description of the items below.
 -  `source` : (*required) a function to return an array of items to display to the user with the signature `function(query, syncResults, asyncResults)`. The callback functions `syncResults or asyncResults` should be called with and array of results as a parameter.

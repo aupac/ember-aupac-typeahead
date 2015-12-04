@@ -5,7 +5,7 @@ import notFoundTemplate from '../templates/components/aupac-typeahead/not-found'
 import pendingTemplate from '../templates/components/aupac-typeahead/pending';
 import suggestionTemplate from '../templates/components/aupac-typeahead/suggestion';
 
-const {computed, observer, isNone, run, debug, Component} = Ember;
+const {observer, isNone, run, debug, Component} = Ember;
 
 const Key = {
   BACKSPACE : 8,
@@ -35,6 +35,7 @@ export default Component.extend({
   limit : 15, //@public
   async : false, //@public
   datasetName : '', //@public
+  allowFreeInput: false, //@public
 
   //HtmlBars Templates
   suggestionTemplate,  //@public
@@ -141,8 +142,8 @@ export default Component.extend({
 
     // Set selected object
     t.on('typeahead:autocompleted', run.bind(this, (jqEvent, suggestionObject /*, nameOfDatasetSuggestionBelongsTo*/) => {
-      this.set('selection', suggestionObject);
-      this.sendAction('action', suggestionObject);
+        this.set('selection', suggestionObject);
+        this.sendAction('action', suggestionObject);
     }));
 
     t.on('typeahead:selected', run.bind(this, (jqEvent, suggestionObject /*, nameOfDatasetSuggestionBelongsTo*/) => {
@@ -168,7 +169,13 @@ export default Component.extend({
       if (model) {
         this.setValue(model);
       } else {
-        this.setValue(null);
+        if (this.get('allowFreeInput')) {
+          const value = this.get('_typeahead').typeahead('val');
+          this.set('selection', value);
+          this.sendAction('action', value);
+        } else {
+          this.setValue(null);
+        }
       }
     }));
 
