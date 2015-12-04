@@ -2,7 +2,6 @@
 
 # 2.0.4
 * #11 (enhancement) new allowFreeInput option that will not clear the text on focus out.
-* #? (enhancement) 
 
 # 2.0.3
 * #6 (enhancement) added CHANGELOG.md
