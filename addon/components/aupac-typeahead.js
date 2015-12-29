@@ -80,7 +80,7 @@ export default Component.extend({
 
   disabledStateChanged() {
     //Toggling the disabled attribute on the controller does not update the hint, need to do this manually.
-    this.$('input.tt-hint').prop('disabled', this.get('disabled'));
+    this.$().parent().find('input.tt-hint').prop('disabled', this.get('disabled'));
   },
 
   initializeTypeahead: function() {

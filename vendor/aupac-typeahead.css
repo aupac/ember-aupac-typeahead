@@ -2,6 +2,10 @@
  *     typeahead.js v0.11.1 - twitter bootstrap v3.3.5    *
  **********************************************************/
 
+.aupac-typeahead.tt-hint[readonly] {
+  background-color: white !important;
+}
+
 /*root typeahead class*/
 .twitter-typeahead {
     display: inherit !important;
