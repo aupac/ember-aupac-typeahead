@@ -27,10 +27,15 @@ export default AupacTypeahead.extend({
     };
   }),
 
+  setValueOverride(selection){
+      return selection;
+  },
+
   /**
    * @Override
    */
   setValue : function(selection) {
+    selection = this.setValueOverride(selection);
     if (typeof selection === 'string') {
       this.get('_typeahead').typeahead('val', selection);
     } else {
