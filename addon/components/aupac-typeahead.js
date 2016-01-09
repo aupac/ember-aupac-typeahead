@@ -9,7 +9,8 @@ const {observer, isNone, run, debug, Component} = Ember;
 
 const Key = {
   BACKSPACE : 8,
-  DELETE : 46
+  DELETE : 46,
+  ENTER : 13
 };
 
 export default Component.extend({
@@ -160,6 +161,9 @@ export default Component.extend({
         this.set('selection', null);
         this.sendAction('action', null);
         this.setValue(value); //restore the text, thus allowing the user to make corrections
+      }
+      else if (jqEvent.which === Key.ENTER) {
+          t.trigger( "focusout" );
       }
     }));
 
