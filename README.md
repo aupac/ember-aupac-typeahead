@@ -34,7 +34,7 @@ In addition to all the features supported by `aupac-typeahead` (see below), `aup
 -  `queryKey`: (default: 'q') the query parameter sent to the server containing the search text.
 -  `selection` : (default: null) initial selection - can be an `ember-data` model (in which case the `displayKey` is used as the initial value) or a `string` which will display as is. Wrap selection in `(readonly x)` helper to avoid two-way binding.
 
-This component has already implemented the `source`, `setValue` and `display` functions to make them compatible with ember-data.  You do not need to do so yourself.
+This component has already implemented the relevant functions to make them compatible with ember-data.  You do not need to do so yourself.
 
 #### Usage example
 ```html
@@ -54,7 +54,7 @@ The `aupac-typeahead` component contains no assumptions about how you're retriev
 -  `action`: (*required) the selected item will be provided as the first argument.
 -  `selection` : (default: null) will be set as the initial selection in the component. Wrap selection with helper `(readonly x)` to avoid two-way binding. 
 -  `autoFocus`: (default: false) focus the control on render.
--  `setValue`: (default: sets the value as is) a function to set the typeahead value based on the users `selection`, signature `function(selection)`.
+-  `transformSelection`: (default: no transform) allows you to transform the selected value before it is set on the typeahead, signature `function(selection)`
 -  `allowFreeInput`: (default: false) allows the user to input their own values that are not part of the option list.  Only useful if the item being selected is a String.
     
 See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets) for a more complete description of the items below.
