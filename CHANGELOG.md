@@ -1,5 +1,9 @@
 # Master
 
+# 2.0.5
+* #13 (enhancement) pressing the enter key now behaves the same and focusout.
+                    overriding the setValue(selection) function is now deprecated in favour of returning a value from transformSelection(selection)
+
 # 2.0.4
 * #11 (enhancement) new allowFreeInput option that will not clear the text on focus out.
 
