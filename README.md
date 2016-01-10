@@ -54,7 +54,7 @@ The `aupac-typeahead` component contains no assumptions about how you're retriev
 -  `action`: (*required) the selected item will be provided as the first argument.
 -  `selection` : (default: null) will be set as the initial selection in the component. Wrap selection with helper `(readonly x)` to avoid two-way binding. 
 -  `autoFocus`: (default: false) focus the control on render.
--  `transformSelection`: (default: no transform) allows you to transform the selected value before it is set on the typeahead, signature `function(selection)`
+-  `transformSelection`: (default: no transform) allows you to transform the selected value before it is set on the typeahead by returning the transformed value, signature `function(selection)`
 -  `allowFreeInput`: (default: false) allows the user to input their own values that are not part of the option list.  Only useful if the item being selected is a String.
     
 See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets) for a more complete description of the items below.
