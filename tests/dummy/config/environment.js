@@ -4,7 +4,7 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'dummy',
     environment: environment,
-    baseURL: '/ember-aupac-typeahead/',
+    baseURL: '/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
