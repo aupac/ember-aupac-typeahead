@@ -170,8 +170,7 @@ export default Component.extend({
         this.set('selection', null);
         this.sendAction('action', null);
         this.setValue(value); //restore the text, thus allowing the user to make corrections
-      }
-      else if (jqEvent.which === Key.ENTER) {
+      } else if (jqEvent.which === Key.ENTER) {
           t.trigger( "focusout" );
       }
     }));
