@@ -1,5 +1,8 @@
 # Master
 
+# 2.0.6
+* #15 (enhancement) - Use Ember.$ instead of $
+
 # 2.0.5
 * #13 (enhancement) pressing the enter key now behaves the same and focusout.
                     overriding the setValue(selection) function is now deprecated in favour of returning a value from transformSelection(selection)
