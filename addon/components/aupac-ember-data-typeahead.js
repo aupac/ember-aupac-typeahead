@@ -71,7 +71,7 @@ export default AupacTypeahead.extend({
     return function (query, syncResults, asyncResults) {
       const q = {};
       q[_this.get('queryKey')] = query;
-      const queryObj = jQuery.extend(true, {}, q , _this.get('params'));
+      const queryObj = Ember.$.extend(true, {}, q , _this.get('params'));
 
       _this.get('store').query(_this.get('modelClass'), queryObj).then(function(models) {
         let emberDataModels = [];
