@@ -203,7 +203,21 @@ export default Component.extend({
 
   willDestroyElement : function() {
     this._super(...arguments);
+    let t = this.get('_typeahead');
+
+    //Remove custom event handlers before destroying
+    t.off('typeahead:autocompleted');
+    t.off('typeahead:selected');
+    t.off('keyup');
+    t.off('focusout');
+
+    //While this wasn't set explicitly here, heap traces indicate a hanging handler
+    t.off('keydown');
+
     this.get('_typeahead').typeahead('destroy');
+
+    //Dereference the element
+    this.set('_typeahead', null);
   }
 
 });
