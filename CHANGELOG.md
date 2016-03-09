@@ -1,5 +1,8 @@
 # Master
 
+# 2.0.7
+* #17 (bug) properly cleanup event handlers
+
 # 2.0.6
 * #15 (enhancement) - Use Ember.$ instead of $
 

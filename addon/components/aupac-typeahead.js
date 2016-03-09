@@ -214,7 +214,7 @@ export default Component.extend({
     //While this wasn't set explicitly here, heap traces indicate a hanging handler
     t.off('keydown');
 
-    this.get('_typeahead').typeahead('destroy');
+    t.typeahead('destroy');
 
     //Dereference the element
     this.set('_typeahead', null);
