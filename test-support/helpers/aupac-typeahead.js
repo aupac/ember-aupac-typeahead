@@ -17,7 +17,7 @@ export default function() {
         $(selector).eq(0).val(searchString).trigger("input");
 
         Ember.run(function() {
-            click('.tt-suggestion:nth-child(' + suggestionIndex + ')');
+            click('.typeahead-suggestion:nth-child(' + suggestionIndex + ')');
         });
 
         return app.testHelpers.wait();
