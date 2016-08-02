@@ -2,6 +2,7 @@
 
 # 2.0.8
 * #22 (enhancement) - Fixed test helper and added tests.
+* #17 (enhancement) - transformSelection is now a computed property.
 
 # 2.0.7
 * #17 (bug) properly cleanup event handlers
