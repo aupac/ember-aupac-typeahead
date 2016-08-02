@@ -1,13 +1,12 @@
 export default function() {
 
     //this.get('/employees');
-    this.get('/employees', function(db, request) {
+    this.get('/employees', function({db}, request) {
       const search = request.queryParams.q;
       const regex = new RegExp(`.*${search}.*`, 'i');
       const employees = db.employees.filter(function(item) {
         return regex.test(item.name);
       });
-
       return {
         employees: employees
       };
@@ -23,7 +22,7 @@ export default function() {
     this.get('/subTasks', 'sub-tasks');
     this.get('/subTasks/:id', 'sub-tasks');
 
-    this.get('/tasks', function(db, request) {
+    this.get('/tasks', function({db}, request) {
       const search = request.queryParams.q;
       const regex = new RegExp(`.*${search}.*`, 'i');
       const tasks = db.tasks.filter(function(item) {
@@ -34,7 +33,11 @@ export default function() {
         tasks: tasks
       };
     });
-    this.get('/tasks/:id');
+    this.get('/tasks/:id', function() {
+      return {
+        task: {id:3, name: 'Task 3'}
+      };
+    });
 
   // These comments are here to help you get started. Feel free to delete them.
 

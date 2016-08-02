@@ -1,9 +1,9 @@
 {
   "predef": [
+    "server",
     "document",
     "window",
-    "-Promise",
-    "$"
+    "-Promise"
   ],
   "browser": true,
   "boss": true,
