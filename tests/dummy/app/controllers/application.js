@@ -24,13 +24,6 @@ const countries = Ember.A(["Afghanistan","Albania","Algeria","Andorra","Angola",
 
 export default Ember.Controller.extend(EmberValidations, {
 
-  init() {
-    this._super(...arguments);
-    this.store.findRecord('task', 3).then((task) => {
-      this.set('task', task);
-    });
-  },
-
   //Country Search
   country : null,
   countrySource : function(query, syncResults /*, asyncResults*/) {
