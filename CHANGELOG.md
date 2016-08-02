@@ -1,5 +1,8 @@
 # Master
 
+# 2.0.8
+* #22 (enhancement) - Fixed test helper and added tests.
+
 # 2.0.7
 * #17 (bug) properly cleanup event handlers
 
