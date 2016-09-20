@@ -110,41 +110,32 @@ export default Component.extend({
         source: this.get('source'),
         templates: {
           suggestion: function (model) {
-            const item = Component.create({
-              model: model,
-              layout: self.get('suggestionTemplate')
-            }).createElement();
-            return item.element;
+            const el = document.createElement('div');
+            el.setAttribute('class', 'typeahead-suggestion');
+            el.appendChild(document.createTextNode(model.title));
+            return el;
           },
           notFound: function (query) {
-            const item = Component.create({
-              query: query,
-              layout: self.get('notFoundTemplate')
-            }).createElement();
-            return item.element;
+            const el = document.createElement('div');
+            el.setAttribute('class', 'typeahead-not-found');
+            el.appendChild(document.createTextNode('No results found.'));
+            return el;
           },
           pending: function (query) {
-            const item = Component.create({
-              query: query,
-              layout: self.get('pendingTemplate')
-            }).createElement();
-            return item.element;
+            const el = document.createElement('div');
+            el.setAttribute('typeahead-pending');
+            el.appendChild(document.createTextNode('Loading...'));
+            return el;
           },
           header: function (query, suggestions) {
-            const item = Component.create({
-              query: query,
-              suggestions: suggestions,
-              layout: self.get('headerTemplate')
-            }).createElement();
-            return item.element;
+            const el = document.createElement('div');
+            el.setAttribute('class', 'typeahead-header');
+            return el;
           },
           footer: function (query, suggestions) {
-            const item = Component.create({
-              query: query,
-              suggestions: suggestions,
-              layout: self.get('footerTemplate')
-            }).createElement();
-            return item.element;
+            const el = document.createElement('div');
+            el.setAttribute('class', 'typeahead-footer');
+            return el;
           }
         }
     });
