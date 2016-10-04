@@ -17,7 +17,7 @@ test('visiting - enter a search - check custom elements', function(assert) {
   let typeahead;
   visit('/');
   andThen(function () {
-    typeahead = findTypeahead();    
+    typeahead = findTypeahead();
     aupacTypeaheadSearch(typeahead, 'ne');
   });
   andThen(function() {
@@ -41,7 +41,7 @@ test('visiting - enter a search without results - check custom elements', functi
   });
   andThen(function() {
     assert.equal(aupacTypeaheadSuggestions(typeahead).length, 0, 'Expected no suggestions');
-    let notFoundElement = find('.typeahead-not-found'); 
+    let notFoundElement = find('.typeahead-not-found');
     assert.equal(notFoundElement.length, 1, 'Expected 1 not-found element');
     assert.equal(notFoundElement.text(), 'GRRRR nothing found :(', 'Expected different not-found text');
     let headers = find('.typeahead-header');

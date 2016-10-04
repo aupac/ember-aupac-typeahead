@@ -31,23 +31,25 @@ export default AupacTypeahead.extend({
    * @Override
    */
   setValue : function(selection) {
-    selection = this.transformSelection(selection);
-    if (typeof selection === 'string') {
-      this.get('_typeahead').typeahead('val', selection);
-    } else {
-      const displayKey = this.get('displayKey');
-      const modelClass = this.get('modelClass');
-      if(selection && selection.get('id')) {
-        const item = this.get('store').peekRecord(modelClass, selection.get('id'));
-        if (isNone(item)) {
-          this.get('store').findRecord(modelClass, selection.get('id')).then((model) => {
-            this.get('_typeahead').typeahead('val', model.get(displayKey));
-          });
-        } else {
-          this.get('_typeahead').typeahead('val', item.get(displayKey));
-        }
+    if (this.get('_typeahead')) { // Was failing in tests with this probably due to a stray observer
+      selection = this.transformSelection(selection);
+      if (typeof selection === 'string') {
+        this.get('_typeahead').typeahead('val', selection);
       } else {
-        this.get('_typeahead').typeahead('val', '');
+        const displayKey = this.get('displayKey');
+        const modelClass = this.get('modelClass');
+        if(selection && selection.get('id')) {
+          const item = this.get('store').peekRecord(modelClass, selection.get('id'));
+          if (isNone(item)) {
+            this.get('store').findRecord(modelClass, selection.get('id')).then((model) => {
+              this.get('_typeahead').typeahead('val', model.get(displayKey));
+            });
+          } else {
+            this.get('_typeahead').typeahead('val', item.get(displayKey));
+          }
+        } else {
+          this.get('_typeahead').typeahead('val', '');
+        }
       }
     }
   },

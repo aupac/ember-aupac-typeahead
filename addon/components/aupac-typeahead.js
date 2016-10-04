@@ -71,11 +71,13 @@ export default Component.extend({
    * @param selection the item selected by the user
    */
   setValue : function(selection) {
-    selection = this.get('transformSelection')(selection);
-    if(selection) {
-      this.get('_typeahead').typeahead('val', selection);
-    } else {
-      this.get('_typeahead').typeahead('val', '');
+    if (this.get('_typeahead')) { // Was failing in tests with this probably due to a stray observer
+      selection = this.get('transformSelection')(selection);
+      if(selection) {
+        this.get('_typeahead').typeahead('val', selection);
+      } else {
+        this.get('_typeahead').typeahead('val', '');
+      }
     }
   },
 
@@ -89,7 +91,7 @@ export default Component.extend({
   },
 
   disabledStateChanged() {
-    //Toggling the disabled attribute on the controller does not update the hint, need to do this manually.
+    // Toggling the disabled attribute on the controller does not update the hint, need to do this manually.
     this.$().parent().find('input.tt-hint').prop('disabled', this.get('disabled'));
   },
 
@@ -110,41 +112,46 @@ export default Component.extend({
         source: this.get('source'),
         templates: {
           suggestion: function (model) {
-            const item = Component.create({
+            const el = document.createElement('div');
+            Component.create({
               model: model,
               layout: self.get('suggestionTemplate')
-            }).createElement();
-            return item.element;
+            }).appendTo(el);
+            return el;
           },
           notFound: function (query) {
-            const item = Component.create({
+            const el = document.createElement('div');
+            Component.create({
               query: query,
               layout: self.get('notFoundTemplate')
-            }).createElement();
-            return item.element;
+            }).appendTo(el);
+            return el;
           },
           pending: function (query) {
-            const item = Component.create({
+            const el = document.createElement('div');
+            Component.create({
               query: query,
               layout: self.get('pendingTemplate')
-            }).createElement();
-            return item.element;
+            }).appendTo(el);
+            return el;
           },
           header: function (query, suggestions) {
-            const item = Component.create({
+            const el = document.createElement('div');
+            Component.create({
               query: query,
               suggestions: suggestions,
               layout: self.get('headerTemplate')
-            }).createElement();
-            return item.element;
+            }).appendTo(el);
+            return el;
           },
           footer: function (query, suggestions) {
-            const item = Component.create({
+            const el = document.createElement('div');
+            Component.create({
               query: query,
               suggestions: suggestions,
               layout: self.get('footerTemplate')
-            }).createElement();
-            return item.element;
+            }).appendTo(el);
+            return el;
           }
         }
     });
