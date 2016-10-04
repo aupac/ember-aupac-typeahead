@@ -1,10 +1,8 @@
 # Master
 
-# 2.0.9
+# 2.0.8
 * #25 (enhancement) - Add tabIndex property
 * #23 (enhancement) - Update for compatibility with ember 2.8.0
-
-# 2.0.8
 * #22 (enhancement) - Fixed test helper and added tests.
 * #17 (enhancement) - transformSelection is now a computed property.
 
