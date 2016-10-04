@@ -17,7 +17,7 @@ export default Component.extend({
   //input tag attributes
   tagName : 'input',
   classNames: ['aupac-typeahead'],
-  attributeBindings : ['disabled','placeholder', 'name'],
+  attributeBindings : ['disabled','placeholder', 'name', 'tabindex'],
   disabled : false, //@public
   placeholder : 'Search', //@public
   name : '', //@public

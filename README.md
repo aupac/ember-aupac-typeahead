@@ -56,6 +56,7 @@ The `aupac-typeahead` component contains no assumptions about how you're retriev
 -  `autoFocus`: (default: false) focus the control on render.
 -  `transformSelection`: (default: no transform) allows you to transform the selected value before it is set on the typeahead by returning the transformed value, signature `function(selection)`
 -  `allowFreeInput`: (default: false) allows the user to input their own values that are not part of the option list.  Only useful if the item being selected is a String.
+-  `tabindex`: allows you to define a numeric tab index for the input
     
 See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets) for a more complete description of the items below.
 -  `source` : (*required) a function to return an array of items to display to the user with the signature `function(query, syncResults, asyncResults)`. The callback functions `syncResults or asyncResults` should be called with and array of results as a parameter.
