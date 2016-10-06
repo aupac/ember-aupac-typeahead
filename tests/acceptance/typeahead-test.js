@@ -1,4 +1,4 @@
-/* global aupacTypeaheadFind, aupacTypeaheadSearch, aupacTypeaheadSuggestions */
+/* global aupacTypeaheadFind, aupacTypeaheadSearch, aupacTypeaheadChoose, aupacTypeaheadSuggestions */
 import { test } from 'qunit';
 import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
 import registerAupacTypeaheadSearchHelpers from '../../tests/helpers/aupac-typeahead';
@@ -51,31 +51,33 @@ test('enter a search - check suggestions - dont choose', function(assert) {
     assert.equal(aupacTypeaheadSuggestions(typeahead).length, 15);
   });
 });
-/* TODO Get this working
+
 test('enter a search - choose first suggestion', function(assert) {
   let typeahead;
   visit('/');
   andThen(function() {
     typeahead = findTypeahead();
     aupacTypeaheadSearch(typeahead, 'ne');
+  });
+  andThen(function() {
     aupacTypeaheadChoose(typeahead, 0);
   });
   andThen(function() {
     assert.equal(typeahead.val(), 'Brunei');
   });
 });
-*/
-/* TODO Get this working
+
 test('enter a search - choose last suggestion', function(assert) {
   let typeahead;
   visit('/');
   andThen(function() {
     typeahead = findTypeahead();
     aupacTypeaheadSearch(typeahead, 'az');
+  });
+  andThen(function() {
     aupacTypeaheadChoose(typeahead, 3);
   });
   andThen(function() {
     assert.equal('Swaziland', typeahead.val());
   });
 });
-*/
