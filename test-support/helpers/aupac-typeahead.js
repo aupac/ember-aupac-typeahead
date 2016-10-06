@@ -58,7 +58,7 @@ export default function() {
     Ember.Test.registerAsyncHelper('aupacTypeaheadChoose', function(app, element, index) {
         let suggestions = typeaheadSuggestions(element);
 
-        if(!suggestions.length || index > suggestions.length) {
+        if(!suggestions.length || index >= suggestions.length) {
             throw new Error('aupacTypeaheadChoose index (' + index + ') out of bounds(' + (suggestions.length || 0) + ')');
         }
 
