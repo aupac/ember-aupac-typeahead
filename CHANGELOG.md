@@ -1,5 +1,6 @@
 # Master
 
+
 # 2.0.8
 * #25 (enhancement) - Add tabIndex property
 * #23 (enhancement) - Update for compatibility with ember 2.8.0
