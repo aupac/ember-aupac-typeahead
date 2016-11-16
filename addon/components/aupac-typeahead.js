@@ -172,11 +172,13 @@ export default Component.extend({
       //Handle the case whereby the user presses the delete or backspace key, in either case
       //the selection is no longer valid.
       if (jqEvent.which === Key.BACKSPACE || jqEvent.which === Key.DELETE) {
-        debug("Removing model");
-        const value = this.get('_typeahead').typeahead('val'); //cache value
-        this.set('selection', null);
-        this.sendAction('action', null);
-        this.setValue(value); //restore the text, thus allowing the user to make corrections
+        if (!this.get('allowFreeInput')) {
+          debug("Removing model");
+          const value = this.get('_typeahead').typeahead('val'); //cache value
+          this.set('selection', null);
+          this.sendAction('action', null);
+          this.setValue(value); // restore the text, thus allowing the user to make corrections
+        }
       } else if (jqEvent.which === Key.ENTER) {
           t.trigger( "focusout" );
       }
