@@ -179,25 +179,33 @@ export default Component.extend({
           this.sendAction('action', null);
           this.setValue(value); // restore the text, thus allowing the user to make corrections
         }
-      } else if (jqEvent.which === Key.ENTER) {
-          t.trigger( "focusout" );
+      }
+    }));
+
+    t.on('keydown', run.bind(this, (jqEvent) => {
+      if (jqEvent.which === Key.ENTER) {
+        this._commitSelection();
       }
     }));
 
     t.on('focusout', run.bind(this, (/*jqEvent*/) => {
       //the user has now left the control, update display with current binding or reset to blank
-      const model = this.get('selection');
-      if (this.get('allowFreeInput')) {
-        const value = this.get('_typeahead').typeahead('val');
-        this.set('selection', value);
-        this.sendAction('action', value);
-      } else if (model) {
-        this.setValue(model);
-      } else {
-          this.setValue(null);
-      }
+      this._commitSelection();
     }));
 
+  },
+
+  _commitSelection: function() {
+    const model = this.get('selection');
+    if (this.get('allowFreeInput')) {
+      const value = this.get('_typeahead').typeahead('val');
+      this.set('selection', value);
+      this.sendAction('action', value);
+    } else if (model) {
+      this.setValue(model);
+    } else {
+      this.setValue(null);
+    }
   },
 
 
@@ -218,10 +226,8 @@ export default Component.extend({
     t.off('typeahead:autocompleted');
     t.off('typeahead:selected');
     t.off('keyup');
-    t.off('focusout');
-
-    //While this wasn't set explicitly here, heap traces indicate a hanging handler
     t.off('keydown');
+    t.off('focusout');
 
     t.typeahead('destroy');
 
