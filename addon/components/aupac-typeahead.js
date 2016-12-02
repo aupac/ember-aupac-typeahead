@@ -115,7 +115,8 @@ export default Component.extend({
             const el = document.createElement('div');
             Component.create({
               model: model,
-              layout: self.get('suggestionTemplate')
+              layout: self.get('suggestionTemplate'),
+              renderer: self.renderer
             }).appendTo(el);
             return el;
           },
@@ -123,7 +124,8 @@ export default Component.extend({
             const el = document.createElement('div');
             Component.create({
               query: query,
-              layout: self.get('notFoundTemplate')
+              layout: self.get('notFoundTemplate'),
+              renderer: self.renderer
             }).appendTo(el);
             return el;
           },
@@ -131,7 +133,8 @@ export default Component.extend({
             const el = document.createElement('div');
             Component.create({
               query: query,
-              layout: self.get('pendingTemplate')
+              layout: self.get('pendingTemplate'),
+              renderer: self.renderer
             }).appendTo(el);
             return el;
           },
@@ -140,7 +143,8 @@ export default Component.extend({
             Component.create({
               query: query,
               suggestions: suggestions,
-              layout: self.get('headerTemplate')
+              layout: self.get('headerTemplate'),
+              renderer: self.renderer
             }).appendTo(el);
             return el;
           },
@@ -149,7 +153,8 @@ export default Component.extend({
             Component.create({
               query: query,
               suggestions: suggestions,
-              layout: self.get('footerTemplate')
+              layout: self.get('footerTemplate'),
+              renderer: self.renderer
             }).appendTo(el);
             return el;
           }
