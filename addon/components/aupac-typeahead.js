@@ -115,7 +115,8 @@ export default Component.extend({
             const el = document.createElement('div');
             Component.create({
               model: model,
-              layout: self.get('suggestionTemplate')
+              layout: self.get('suggestionTemplate'),
+              renderer: self.renderer
             }).appendTo(el);
             return el;
           },
@@ -123,7 +124,8 @@ export default Component.extend({
             const el = document.createElement('div');
             Component.create({
               query: query,
-              layout: self.get('notFoundTemplate')
+              layout: self.get('notFoundTemplate'),
+              renderer: self.renderer
             }).appendTo(el);
             return el;
           },
@@ -131,7 +133,8 @@ export default Component.extend({
             const el = document.createElement('div');
             Component.create({
               query: query,
-              layout: self.get('pendingTemplate')
+              layout: self.get('pendingTemplate'),
+              renderer: self.renderer
             }).appendTo(el);
             return el;
           },
@@ -140,7 +143,8 @@ export default Component.extend({
             Component.create({
               query: query,
               suggestions: suggestions,
-              layout: self.get('headerTemplate')
+              layout: self.get('headerTemplate'),
+              renderer: self.renderer
             }).appendTo(el);
             return el;
           },
@@ -149,7 +153,8 @@ export default Component.extend({
             Component.create({
               query: query,
               suggestions: suggestions,
-              layout: self.get('footerTemplate')
+              layout: self.get('footerTemplate'),
+              renderer: self.renderer
             }).appendTo(el);
             return el;
           }
@@ -172,30 +177,40 @@ export default Component.extend({
       //Handle the case whereby the user presses the delete or backspace key, in either case
       //the selection is no longer valid.
       if (jqEvent.which === Key.BACKSPACE || jqEvent.which === Key.DELETE) {
-        debug("Removing model");
-        const value = this.get('_typeahead').typeahead('val'); //cache value
-        this.set('selection', null);
-        this.sendAction('action', null);
-        this.setValue(value); //restore the text, thus allowing the user to make corrections
-      } else if (jqEvent.which === Key.ENTER) {
-          t.trigger( "focusout" );
+        if (!this.get('allowFreeInput')) {
+          debug("Removing model");
+          const value = this.get('_typeahead').typeahead('val'); //cache value
+          this.set('selection', null);
+          this.sendAction('action', null);
+          this.setValue(value); // restore the text, thus allowing the user to make corrections
+        }
+      }
+    }));
+
+    t.on('keydown', run.bind(this, (jqEvent) => {
+      if (jqEvent.which === Key.ENTER) {
+        this._commitSelection();
       }
     }));
 
     t.on('focusout', run.bind(this, (/*jqEvent*/) => {
       //the user has now left the control, update display with current binding or reset to blank
-      const model = this.get('selection');
-      if (this.get('allowFreeInput')) {
-        const value = this.get('_typeahead').typeahead('val');
-        this.set('selection', value);
-        this.sendAction('action', value);
-      } else if (model) {
-        this.setValue(model);
-      } else {
-          this.setValue(null);
-      }
+      this._commitSelection();
     }));
 
+  },
+
+  _commitSelection: function() {
+    const model = this.get('selection');
+    if (this.get('allowFreeInput')) {
+      const value = this.get('_typeahead').typeahead('val');
+      this.set('selection', value);
+      this.sendAction('action', value);
+    } else if (model) {
+      this.setValue(model);
+    } else {
+      this.setValue(null);
+    }
   },
 
 
@@ -216,10 +231,8 @@ export default Component.extend({
     t.off('typeahead:autocompleted');
     t.off('typeahead:selected');
     t.off('keyup');
-    t.off('focusout');
-
-    //While this wasn't set explicitly here, heap traces indicate a hanging handler
     t.off('keydown');
+    t.off('focusout');
 
     t.typeahead('destroy');
 
