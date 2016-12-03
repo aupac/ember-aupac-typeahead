@@ -1,5 +1,6 @@
 # Master
-
+* #31 (enhancement) - Make compatible with ember@2.1.0, fixes submit issue
+* #28 (bug) - Fix test helper
 
 # 2.0.8
 * #25 (enhancement) - Add tabIndex property
