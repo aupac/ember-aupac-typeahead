@@ -1,5 +1,23 @@
 # Master
-* #31 (enhancement) - Make compatible with ember@2.1.0, fixes submit issue
+
+# 2.1.1
+* #35 (breaking) - add support for ember@2.10.0 when model is a string
+
+All templates `footerTemplate`, `headerTemplate`, `notFoundTemplate`, `pendingTemplate` and `suggestionTemplate` are now supplied an object.
+
+`suggestionTemplate`: is now always using displayName event when the returned result is a String.
+{{model.diplayName}} whereas before it would have just been {{model}}
+
+All other templates were previously passed a `query` or `suggestions` or both directly.
+Now these are all prefixed with "model".
+
+So `{{model.query}}` instead of `{{query}}` directly.
+
+* If you are not using custom templates you will not be affected.
+* If you were using aupac-ember-data-typeahead and customised the suggestion template you will not be affected. 
+
+# 2.1.0
+* #31 (enhancement) - Make compatible with ember@2.10.0, fixes submit issue
 * #28 (bug) - Fix test helper
 
 # 2.0.8

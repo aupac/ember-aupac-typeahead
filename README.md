@@ -64,7 +64,7 @@ See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc
 -  `datasetName` : (default: 'default') the name of the dataset.
 -  `limit` : (default: 15) the maximum number of results to display to the user.
 -  `display` : (default: will display the returned item as is) function that displays the selected item to the user, signature `function(model)`.
--  `suggestionTemplate` : a precompiled HTMLBars template used for suggestions, attribute bindings should be specified under the model object. ie `{{model.firstName}}`.
+-  `suggestionTemplate` : a precompiled HTMLBars template used for suggestions, attribute bindings should be specified under the model object. ie `{{model.firstName}}`. If the returned value is **not** an object, it will be bound under {{model.displayName}}.
 -  `notFoundTemplate` : a precompiled HTMLBars template that is rendered when no results are found.
 -  `pendingTemplate` :  a precompiled HTMLBars template that is rendered when loading the result set but not yet resolved.
 -  `headerTemplate` : a precompiled HTMLBars template displayed at the top of the search results.
@@ -123,7 +123,7 @@ You can override the `suggestionTemplate`, `notFoundTemplate`, `pendingTemplate`
 For example
 ```html
 {{!-- app/templates/country-templates/suggestion.hbs --}}
-<div class='typeahead-suggestion'><img src="http://www.gravatar.com/avatar/0cf15665a9146ba852bf042b0652780a?s=200" style="width: 10%; height: 10%">{{model}}</div>
+<div class='typeahead-suggestion'><img src="http://www.gravatar.com/avatar/0cf15665a9146ba852bf042b0652780a?s=200" style="width: 10%; height: 10%">{{model.displayName}}</div>
 ```
 
 Then in your controller
