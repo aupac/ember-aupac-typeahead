@@ -112,13 +112,11 @@ export default Component.extend({
         source: this.get('source'),
         templates: {
           suggestion: function (model) {
-            // const el = document.createElement('div');
-            const el = self.renderer.createElement('div');
+            const el = document.createElement('div');
             if (typeof model !== 'object') {
               model = Ember.Object.create({
                 displayName: model
               });
-              //Ember.setOwner(model, Ember.getOwner(self));
             }
             Component.create({
               model,
