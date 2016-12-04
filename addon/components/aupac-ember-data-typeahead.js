@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import AupacTypeahead from './aupac-typeahead';
-import suggestionTemplate from '../templates/components/aupac-ember-data-typeahead/suggestion';
 
 const {isNone, inject, computed, observer} = Ember;
 
@@ -11,9 +10,6 @@ export default AupacTypeahead.extend({
   params : {}, //@public
   async : true, //@public
   queryKey : 'q', //@public
-
-  // @Override
-  suggestionTemplate,
 
   //private
   store : inject.service('store'),

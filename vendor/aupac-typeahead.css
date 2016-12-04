@@ -30,7 +30,7 @@
 .twitter-typeahead .tt-menu {
   width: 100%;
   max-height: 500px;
-  overflow-y: scroll;
+  overflow-y: auto;
   border: 1px solid #cccccc;
 
   -moz-box-shadow: 12px 14px 30px -7px #616161;

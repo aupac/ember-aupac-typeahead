@@ -112,9 +112,16 @@ export default Component.extend({
         source: this.get('source'),
         templates: {
           suggestion: function (model) {
-            const el = document.createElement('div');
+            // const el = document.createElement('div');
+            const el = self.renderer.createElement('div');
+            if (typeof model !== 'object') {
+              model = Ember.Object.create({
+                displayName: model
+              });
+              //Ember.setOwner(model, Ember.getOwner(self));
+            }
             Component.create({
-              model: model,
+              model,
               layout: self.get('suggestionTemplate'),
               renderer: self.renderer
             }).appendTo(el);
@@ -122,8 +129,11 @@ export default Component.extend({
           },
           notFound: function (query) {
             const el = document.createElement('div');
+            const model = Ember.Object.create({
+              query
+            });
             Component.create({
-              query: query,
+              model,
               layout: self.get('notFoundTemplate'),
               renderer: self.renderer
             }).appendTo(el);
@@ -131,8 +141,11 @@ export default Component.extend({
           },
           pending: function (query) {
             const el = document.createElement('div');
+            const model = Ember.Object.create({
+              query
+            });
             Component.create({
-              query: query,
+              model,
               layout: self.get('pendingTemplate'),
               renderer: self.renderer
             }).appendTo(el);
@@ -140,9 +153,12 @@ export default Component.extend({
           },
           header: function (query, suggestions) {
             const el = document.createElement('div');
+            const model = Ember.Object.create({
+              query,
+              suggestions
+            });
             Component.create({
-              query: query,
-              suggestions: suggestions,
+              model,
               layout: self.get('headerTemplate'),
               renderer: self.renderer
             }).appendTo(el);
@@ -150,9 +166,12 @@ export default Component.extend({
           },
           footer: function (query, suggestions) {
             const el = document.createElement('div');
+            const model = Ember.Object.create({
+              query,
+              suggestions
+            });
             Component.create({
-              query: query,
-              suggestions: suggestions,
+              model,
               layout: self.get('footerTemplate'),
               renderer: self.renderer
             }).appendTo(el);
