@@ -23,9 +23,9 @@ export default Component.extend({
   name : '', //@public
 
   //Actions
-  action: Ember.K, //@public
+  action() {}, //@public
   selection : null, //@public
-  source : Ember.K, //@public
+  source() {}, //@public
 
   //typeahead.js Customizations
   highlight: true, //@public
