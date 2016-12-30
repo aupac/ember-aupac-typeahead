@@ -1,5 +1,9 @@
 # Master
 
+# 2.1.2
+
+* #37 (improvement) - Remove deprecated Ember.K
+
 # 2.1.1
 * #35 (breaking) - add support for ember@2.10.0 when model is a string
 
