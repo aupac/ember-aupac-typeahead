@@ -11,7 +11,7 @@ function mergeConfig(obj1,obj2){
 module.exports = {
   name: 'ember-aupac-typeahead',
   included : function included(app) {
-    this._super.included(app);
+    this._super.included.apply(this, arguments);
 
     var defaults = {
       includeCss: true,
