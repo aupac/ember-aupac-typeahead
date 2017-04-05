@@ -28,7 +28,7 @@ module.exports = {
     }
 
     if (config.includeTypeahead) {
-      app.import(app.bowerDirectory + '/typeahead.js/dist/typeahead.jquery.min.js');
+      app.import(app.bowerDirectory + '/corejs-typeahead/dist/typeahead.jquery.min.js');
     }
 
   }
