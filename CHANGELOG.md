@@ -1,5 +1,8 @@
 # Master
 
+* #46 updates unmaintained typeahead.js dependency to use maintained fork core-typeahead
+* #44 upgrade dependencies
+
 # 2.1.2
 
 * #37 (improvement) - Remove deprecated Ember.K
