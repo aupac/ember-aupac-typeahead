@@ -7,7 +7,7 @@ function mergeConfig(obj1,obj2){
 
 module.exports = {
   normalizeEntityName: function() {},
-  description: 'add typeahead.js to project',
+  description: 'add corejs-typeahead to project',
 
   afterInstall: function(app) {
 
@@ -21,7 +21,7 @@ module.exports = {
     var config = mergeConfig(defaults, userConfig);
 
     if (config.includeTypeahead) {
-      return this.addBowerPackageToProject('typeahead.js', '~0.11.1');
+      return this.addBowerPackageToProject('corejs-typeahead', '~1.1.1');
     }
   }
 };

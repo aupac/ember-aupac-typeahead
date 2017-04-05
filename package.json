@@ -58,6 +58,7 @@
     "ember-addon",
     "typeahead",
     "typeahead.js",
+    "corejs-typeahead",
     "autocomplete",
     "ajax"
   ],
