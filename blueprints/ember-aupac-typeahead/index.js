@@ -1,26 +1,21 @@
-function mergeConfig(obj1,obj2){
-  var obj3 = {};
-  for (var attrname in obj1) { obj3[attrname] = obj1[attrname]; }
-  for (var attrname in obj2) { obj3[attrname] = obj2[attrname]; }
-  return obj3;
-}
+/* eslint-env node */
+'use strict';
 
 module.exports = {
   normalizeEntityName: function() {},
   description: 'add corejs-typeahead to project',
 
-  afterInstall: function(app) {
+  include: function(app) {
+    this._super.included.apply(this, arguments);
 
-    var defaults = {
+    let defaults = {
       includeTypeahead: true
     };
 
-    var projectConfig = this.project.config(app.env);
-    var userConfig = projectConfig['ember-aupac-typeahead'] || defaults;
+    let userConfig = app.options['ember-aupac-typeahead'] || {};
+    let config = Object.assign(defaults, userConfig);
 
-    var config = mergeConfig(defaults, userConfig);
-
-    if (config.includeTypeahead) {
+    if (config.includeTypeahead && !process.env.EMBER_CLI_FASTBOOT) {
       return this.addBowerPackageToProject('corejs-typeahead', '~1.1.1');
     }
   }
