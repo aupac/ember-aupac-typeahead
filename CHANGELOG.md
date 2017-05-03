@@ -1,5 +1,7 @@
 # Master
 
+* #48 Fix binding of includeCss and includeTypeahead, add Fastboot support
+
 # 2.2.0
 
 * #46 updates unmaintained typeahead.js dependency to use maintained fork core-typeahead
