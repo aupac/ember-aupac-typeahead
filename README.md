@@ -80,14 +80,14 @@ See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc
 ##### Example
 In your template
 ```javascript
-    {{aupac-typeahead action=(action (mut country))
-      class='form-control'
-      source=countrySource
-      placeholder='Search for a country'}}
+{{aupac-typeahead action=(action (mut country))
+  class='form-control'
+  source=countrySource
+  placeholder='Search for a country'}}
 ```
 
 In your controller
-```
+```javascript
 const countries = Ember.A(["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas"
   ,"Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands"
   ,"Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Cape Verde","Cayman Islands","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica"
@@ -122,7 +122,7 @@ export default Ember.Controller.extend({
 You can override the `suggestionTemplate`, `notFoundTemplate`, `pendingTemplate`, `headerTemplate` or `footerTemplate` used by importing a `*.hbs` file and assigning to the appropriate property.
 
 For example
-```html
+```handlebars
 {{!-- app/templates/country-templates/suggestion.hbs --}}
 <div class='typeahead-suggestion'><img src="http://www.gravatar.com/avatar/0cf15665a9146ba852bf042b0652780a?s=200" style="width: 10%; height: 10%">{{model.displayName}}</div>
 ```
@@ -139,7 +139,7 @@ export default Ember.Controller.extend({
 ```
 
 And assign it to your template
-```html
+```handlebars
 {{aupac-typeahead action=(action (mut country))
 ... bind the custom suggestion template to the component
 suggestionTemplate=customSuggestionTemplate
