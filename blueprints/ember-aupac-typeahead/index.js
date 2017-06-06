@@ -15,7 +15,7 @@ module.exports = {
     let userConfig = app.options['ember-aupac-typeahead'] || {};
     let config = Object.assign(defaults, userConfig);
 
-    if (config.includeTypeahead && !process.env.EMBER_CLI_FASTBOOT) {
+    if (config.includeTypeahead) {
       return this.addBowerPackageToProject('corejs-typeahead', '~1.1.1');
     }
   }
