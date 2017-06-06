@@ -32,14 +32,12 @@ module.exports = {
     const assetPath =__dirname + '/' + app.bowerDirectory + '/corejs-typeahead/dist/';
 
     if (fs.existsSync(assetPath)) {
-      debugger;
       let jquerymin = new Funnel(assetPath, {
         files: ['typeahead.jquery.min.js']});
       jquerymin = map(jquerymin,
         (content) => `if (typeof FastBoot === 'undefined') { ${content} }`);
       return new mergeTrees([defaultTree, jquerymin]);
     } else {
-      debugger;
       return defaultTree;
     }
   }
