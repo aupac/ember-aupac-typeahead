@@ -25,7 +25,7 @@ Demo [HERE](http://aupac.github.io/ember-aupac-typeahead/)
 The `aupac-ember-data-typeahead` component is an extension of the more generic `aupac-typeahead` and assumes you're using ember-data to retrieve your data remotely. This allows ember-data users to streamline the use of this component into a single line of code in their template.
 
 #### Component Attributes
-By default, each ember-data model supplied in `modelClass` is required to have a `displayName` (computed property or attribute) that will return a string representing the name to display in the suggestion template.  If this is not possible you can override the `suggestionTemplate` and supply something else (see below). 
+By default, each ember-data model supplied in `modelClass` is required to have a `displayName` (computed property or attribute) that will return a string representing the name to display in the suggestion template.  If this is not possible you can override the `suggestionTemplate` and supply something else (see below).
 
 In addition to all the features supported by `aupac-typeahead` (see below), `aupac-ember-data-typeahead` supports the following:
 
@@ -58,9 +58,9 @@ The `aupac-typeahead` component contains no assumptions about how you're retriev
 -  `transformSelection`: (default: no transform) allows you to transform the selected value before it is set on the typeahead by returning the transformed value, signature `function(selection)`
 -  `allowFreeInput`: (default: false) allows the user to input their own values that are not part of the option list.  Only useful if the item being selected is a String.
 -  `tabindex`: allows you to define a numeric tab index for the input
-    
+
 See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets) for a more complete description of the items below.
--  `source` : (*required) a function to return an array of items to display to the user with the signature `function(query, syncResults, asyncResults)`. The callback functions `syncResults or asyncResults` should be called with and array of results as a parameter.
+-  `source` : (*required) a function to return an array of items to display to the user with the signature `function(query, syncResults, asyncResults)`. The callback functions `syncResults or asyncResults` should be called with an array of results as a parameter.
 -  `async` : (default: false) true if the returned data is asynchronous.
 -  `datasetName` : (default: 'default') the name of the dataset.
 -  `limit` : (default: 15) the maximum number of results to display to the user.
@@ -69,8 +69,8 @@ See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc
 -  `notFoundTemplate` : a precompiled HTMLBars template that is rendered when no results are found.
 -  `pendingTemplate` :  a precompiled HTMLBars template that is rendered when loading the result set but not yet resolved.
 -  `headerTemplate` : a precompiled HTMLBars template displayed at the top of the search results.
--  `footerTemplate` : a precompiled HTMLBars template displayed at the bottom of the search results.  
-          
+-  `footerTemplate` : a precompiled HTMLBars template displayed at the bottom of the search results.
+
 See the [typeahead docs](https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#options) for a more complete description of the items below.
 -  `highlight`: (default: true) true if matching text be highlighted in the search results.
 -  `hint`: (default: true) true if hints be displayed in the input.
