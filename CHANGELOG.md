@@ -1,5 +1,11 @@
 # Master
 
+* #54 Fix minor typo and remove extra whitespace in README 
+* #53 (breaking) Prepare for ember-cli-fastboot 1.0 build format 
+
+  Please update to ember-fastboot > 1.0
+
+* #49 Add syntax highlighting to README 
 * #48 Fix binding of includeCss and includeTypeahead, add Fastboot support
 
 # 2.2.0
