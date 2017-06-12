@@ -4,6 +4,10 @@
     "pretender": "~1.1.0",
     "Faker": "~3.1.0",
     "bootstrap": "~3.3.5",
-    "corejs-typeahead": "~1.1.1"
+    "corejs-typeahead": "~1.1.1",
+    "ember": "components/ember#lts-2-8"
+  },
+  "resolutions": {
+    "ember": "lts-2-8"
   }
 }
