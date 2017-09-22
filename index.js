@@ -3,6 +3,7 @@
 const fs = require('fs');
 
 const Funnel = require('broccoli-funnel');
+const path = require('path');
 const map = require('broccoli-stew').map;
 const mergeTrees = require('broccoli-merge-trees');
 
@@ -29,7 +30,7 @@ module.exports = {
   },
   treeForVendor: function(defaultTree) {
     const app = this._findHost();
-    const assetPath =__dirname + '/' + app.bowerDirectory + '/corejs-typeahead/dist/';
+    const assetPath = path.join(app.bowerDirectory, 'corejs-typeahead/dist/');
 
     if (fs.existsSync(assetPath)) {
       let jquerymin = new Funnel(assetPath, {
