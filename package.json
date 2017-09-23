@@ -16,6 +16,7 @@
     "url": "git+https://github.com/aupac/ember-aupac-typeahead.git"
   },
   "dependencies": {
+    "bower": "^1.8.2",
     "ember-cli-babel": "^5.1.7",
     "ember-cli-htmlbars": "^2.0.1"
   },

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import AupacTypeahead from './aupac-typeahead';
 
-const {isNone, inject, computed, observer} = Ember;
+const {isNone, inject, computed, observer, typeOf} = Ember;
 
 export default AupacTypeahead.extend({
 
@@ -47,6 +47,27 @@ export default AupacTypeahead.extend({
           this.get('_typeahead').typeahead('val', '');
         }
       }
+    }
+  },
+
+  /**
+   * @Override
+   */
+  _commitSelection: function() {
+    const model = this.get('selection');
+
+    if (this.get('allowFreeInput')) {
+      const displayKey = this.get('displayKey');
+      const displayValue = typeOf(model) === 'instance' ? model.get(displayKey) : ''
+      const value = this.get('_typeahead').typeahead('val');
+
+      if (displayValue !== value) {
+        this.selectionChanged(value);
+      }
+    } else if (model) {
+      this.setValue(model);
+    } else {
+      this.setValue(null);
     }
   },
 

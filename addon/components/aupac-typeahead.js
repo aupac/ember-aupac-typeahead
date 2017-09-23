@@ -47,6 +47,7 @@ export default Component.extend({
 
   //Private
   _typeahead: null,
+  oldValue: null,
 
 
   /**
@@ -181,13 +182,11 @@ export default Component.extend({
 
     // Set selected object
     t.on('typeahead:autocompleted', run.bind(this, (jqEvent, suggestionObject /*, nameOfDatasetSuggestionBelongsTo*/) => {
-        this.set('selection', suggestionObject);
-        this.sendAction('action', suggestionObject);
+        this.updateSelectionWhenChanged(suggestionObject);
     }));
 
     t.on('typeahead:selected', run.bind(this, (jqEvent, suggestionObject /*, nameOfDatasetSuggestionBelongsTo*/) => {
-      this.set('selection', suggestionObject);
-      this.sendAction('action', suggestionObject);
+      this.updateSelectionWhenChanged(suggestionObject);
     }));
 
     t.on('keyup', run.bind(this, (jqEvent) => {
@@ -197,8 +196,7 @@ export default Component.extend({
         if (!this.get('allowFreeInput')) {
           debug("Removing model");
           const value = this.get('_typeahead').typeahead('val'); //cache value
-          this.set('selection', null);
-          this.sendAction('action', null);
+          this.updateSelectionWhenChanged(null);
           this.setValue(value); // restore the text, thus allowing the user to make corrections
         }
       }
@@ -221,15 +219,13 @@ export default Component.extend({
     const model = this.get('selection');
     if (this.get('allowFreeInput')) {
       const value = this.get('_typeahead').typeahead('val');
-      this.set('selection', value);
-      this.sendAction('action', value);
+      this.updateSelectionWhenChanged(value);
     } else if (model) {
       this.setValue(model);
     } else {
       this.setValue(null);
     }
   },
-
 
   selectionUpdated: observer('selection', '_typeahead',function() {
     const selection = this.get('selection');
@@ -239,6 +235,15 @@ export default Component.extend({
       this.setValue(selection);
     }
   }),
+
+  updateSelectionWhenChanged: function(value){
+    const oldValue = this.get('oldValue');
+    if (oldValue !== value) {
+      this.set('oldValue', value);
+      this.set('selection', value);
+      this.sendAction('action', value);
+    }
+  },
 
   willDestroyElement : function() {
     this._super(...arguments);
