@@ -1,5 +1,9 @@
 # Master
 
+# 2.3.0
+
+* #58 Fix assetPath in treeForVendor
+* #57 Remove unnecessary calls to action when focusing out
 * #54 Fix minor typo and remove extra whitespace in README 
 * #53 (breaking) Prepare for ember-cli-fastboot 1.0 build format 
 
