@@ -1,5 +1,9 @@
 # Master
 
+# 2.3.1
+
+* #59 Fix called method
+
 # 2.3.0
 
 * #58 Fix assetPath in treeForVendor
