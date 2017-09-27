@@ -62,7 +62,7 @@ export default AupacTypeahead.extend({
       const value = this.get('_typeahead').typeahead('val');
 
       if (displayValue !== value) {
-        this.selectionChanged(value);
+        this.updateSelectionWhenChanged(value);
       }
     } else if (model) {
       this.setValue(model);
