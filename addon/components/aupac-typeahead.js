@@ -182,11 +182,11 @@ export default Component.extend({
 
     // Set selected object
     t.on('typeahead:autocompleted', run.bind(this, (jqEvent, suggestionObject /*, nameOfDatasetSuggestionBelongsTo*/) => {
-        this.updateSelectionWhenChanged(suggestionObject);
+        this.updateSelectionWhenChanged(suggestionObject, 'typeahead:autocompleted');
     }));
 
     t.on('typeahead:selected', run.bind(this, (jqEvent, suggestionObject /*, nameOfDatasetSuggestionBelongsTo*/) => {
-      this.updateSelectionWhenChanged(suggestionObject);
+      this.updateSelectionWhenChanged(suggestionObject, 'typeahead:selected');
     }));
 
     t.on('keyup', run.bind(this, (jqEvent) => {
@@ -196,7 +196,7 @@ export default Component.extend({
         if (!this.get('allowFreeInput')) {
           debug("Removing model");
           const value = this.get('_typeahead').typeahead('val'); //cache value
-          this.updateSelectionWhenChanged(null);
+          this.updateSelectionWhenChanged(null, 'keyup');
           this.setValue(value); // restore the text, thus allowing the user to make corrections
         }
       }
@@ -204,22 +204,22 @@ export default Component.extend({
 
     t.on('keydown', run.bind(this, (jqEvent) => {
       if (jqEvent.which === Key.ENTER) {
-        this._commitSelection();
+        this._commitSelection('keydown');
       }
     }));
 
     t.on('focusout', run.bind(this, (/*jqEvent*/) => {
       //the user has now left the control, update display with current binding or reset to blank
-      this._commitSelection();
+      this._commitSelection('focusout');
     }));
 
   },
 
-  _commitSelection: function() {
+  _commitSelection: function(evt_name) {
     const model = this.get('selection');
     if (this.get('allowFreeInput')) {
       const value = this.get('_typeahead').typeahead('val');
-      this.updateSelectionWhenChanged(value);
+      this.updateSelectionWhenChanged(value, evt_name);
     } else if (model) {
       this.setValue(model);
     } else {
@@ -236,12 +236,12 @@ export default Component.extend({
     }
   }),
 
-  updateSelectionWhenChanged: function(value){
+  updateSelectionWhenChanged: function(value, evt_name){
     const oldValue = this.get('oldValue');
     if (oldValue !== value) {
       this.set('oldValue', value);
       this.set('selection', value);
-      this.sendAction('action', value);
+      this.sendAction('action', value, evt_name);
     }
   },
 
