@@ -58,7 +58,7 @@ export default AupacTypeahead.extend({
 
     if (this.get('allowFreeInput')) {
       const displayKey = this.get('displayKey');
-      const displayValue = typeOf(model) === 'instance' ? model.get(displayKey) : ''
+      const displayValue = typeOf(model) === 'instance' ? model.get(displayKey) : undefined
       const value = this.get('_typeahead').typeahead('val');
 
       if (displayValue !== value) {
