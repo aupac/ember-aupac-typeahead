@@ -1,5 +1,8 @@
 # Master
 
+# 2.3.3
+* #63 Fix: Action not called when value cleared out
+
 # 2.3.2
 * (enhancement) - send event name to action
 
