@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import EmberValidations from 'ember-validations';
 import suggestionTemplate from '../templates/customised/suggestion';
 import headerTemplate from '../templates/customised/header';
 import footerTemplate from '../templates/customised/footer';
@@ -22,7 +21,7 @@ const countries = Ember.A(["Afghanistan","Albania","Algeria","Andorra","Angola",
   "Turkey","Turkmenistan","Turks &amp; Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Venezuela","Vietnam","Virgin Islands (US)",
   "Yemen","Zambia","Zimbabwe"]);
 
-export default Ember.Controller.extend(EmberValidations, {
+export default Ember.Controller.extend({
 
   //Country Search
   country : null,

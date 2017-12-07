@@ -1,8 +1,10 @@
 /* eslint-env node */
-var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
+'use strict';
+
+const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
-  var app = new EmberAddon(defaults, {
+  let app = new EmberAddon(defaults, {
     // Add options here
   });
 
@@ -13,24 +15,26 @@ module.exports = function(defaults) {
     behave. You most likely want to be modifying `./index.js` or app's build file
   */
 
-  // Bootstrap
-  app.import('bower_components/bootstrap/dist/css/bootstrap.css');
-  app.import('bower_components/bootstrap/dist/css/bootstrap.css.map', {
+  app.import('node_modules/corejs-typeahead/dist/typeahead.jquery.js');
+  app.import('vendor/aupac-typeahead.css');
+
+  app.import('node_modules/bootstrap/dist/css/bootstrap.css');
+  app.import('node_modules/bootstrap/dist/css/bootstrap.css.map', {
     destDir: 'assets'
   });
-  app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.eot', {
+  app.import('node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.eot', {
     destDir: 'fonts'
   });
-  app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf', {
+  app.import('node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf', {
     destDir: 'fonts'
   });
-  app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.svg', {
+  app.import('node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.svg', {
     destDir: 'fonts'
   });
-  app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff', {
+  app.import('node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff', {
     destDir: 'fonts'
   });
-  app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2', {
+  app.import('node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2', {
     destDir: 'fonts'
   });
 

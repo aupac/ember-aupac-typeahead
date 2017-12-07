@@ -1,16 +1,18 @@
 /* eslint-env node */
 'use strict';
-const fs = require('fs');
 
-const Funnel = require('broccoli-funnel');
-const path = require('path');
-const map = require('broccoli-stew').map;
-const mergeTrees = require('broccoli-merge-trees');
+var path = require('path');
+var Funnel = require('broccoli-funnel');
+var MergeTrees = require('broccoli-merge-trees');
 
 module.exports = {
   name: 'ember-aupac-typeahead',
-  included: function(app) {
+
+  included(app) {
     this._super.included.apply(this, arguments);
+
+    // FIXME
+    //this.import('vendor/shims/typeahead.js');
 
     let defaults = {
       includeCss: true,
@@ -25,21 +27,16 @@ module.exports = {
     }
 
     if(config.includeTypeahead) {
-      app.import('vendor/typeahead.jquery.min.js');
+      this.import('vendor/typeahead.jquery.js');
     }
   },
-  treeForVendor: function(defaultTree) {
-    const app = this._findHost();
-    const assetPath = path.join(app.bowerDirectory, 'corejs-typeahead/dist/');
 
-    if (fs.existsSync(assetPath)) {
-      let jquerymin = new Funnel(assetPath, {
-        files: ['typeahead.jquery.min.js']});
-      jquerymin = map(jquerymin,
-        (content) => `if (typeof FastBoot === 'undefined') { ${content} }`);
-      return new mergeTrees([defaultTree, jquerymin]);
-    } else {
-      return defaultTree;
-    }
+  treeForVendor(vendorTree) {
+    var momentTree = new Funnel(path.dirname(require.resolve('corejs-typeahead/dist/typeahead.jquery.js')), {
+      files: ['typeahead.jquery.js'],
+    });
+
+    return new MergeTrees([vendorTree, momentTree]);
   }
+
 };

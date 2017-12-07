@@ -1,5 +1,10 @@
 # Master
 
+# 3.0.0
+* (breaking) Updated to ember@2.17.0
+* (breaking) Now using npm instead of bower
+* Removed option to conditionally include corejs-typeahead as it is now part of npm dependencies
+
 # 2.3.3
 * #63 Fix: Action not called when value cleared out
 

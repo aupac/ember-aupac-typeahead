@@ -2,12 +2,12 @@ import PageObject from '../../tests/page-object';
 
 const {
   value,
-  customHelper,
+  //customHelper,
   collection,
   clickable
   } = PageObject;
 
-export default function aupacTypeahead(selector, options) {
+export default function aupacTypeahead(selector/*, options*/) {
   return {
     search(search) {
       $(selector).val(search).trigger('input');
