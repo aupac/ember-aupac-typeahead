@@ -2,7 +2,7 @@
 
 # 3.0.0
 * (enhancement) Updated to support ember@2.17.0
-* (breaking) Now using npm instead of bower
+* (breaking) Now using npm instead of bower for corejs-typeahead
 
 # 2.3.3
 * (bug) #63 Action not called when value cleared out
