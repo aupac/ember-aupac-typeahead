@@ -5,7 +5,7 @@ import notFoundTemplate from '../templates/components/aupac-typeahead/not-found'
 import pendingTemplate from '../templates/components/aupac-typeahead/pending';
 import suggestionTemplate from '../templates/components/aupac-typeahead/suggestion';
 
-const {observer, isNone, run, debug, Component} = Ember;
+const {observer, isNone, run, debug, getOwner, Component} = Ember;
 
 const Key = {
   BACKSPACE : 8,
@@ -14,6 +14,12 @@ const Key = {
 };
 
 export default Component.extend({
+  init() {
+    this._super(...arguments);
+    let owner = getOwner(this);
+    owner.register('component:-typeahead-suggestion', Component);
+  },
+
   //input tag attributes
   tagName : 'input',
   classNames: ['aupac-typeahead'],
@@ -119,10 +125,11 @@ export default Component.extend({
                 displayName: model
               });
             }
-            Component.create({
+            let owner = getOwner(self);
+            let ComponentFactory = owner.factoryFor('component:-typeahead-suggestion');
+            ComponentFactory.create({
               model,
               layout: self.get('suggestionTemplate'),
-              renderer: self.renderer
             }).appendTo(el);
             return el;
           },
@@ -131,10 +138,11 @@ export default Component.extend({
             const model = Ember.Object.create({
               query
             });
-            Component.create({
+            let owner = getOwner(self);
+            let ComponentFactory = owner.factoryFor('component:-typeahead-suggestion');
+            ComponentFactory.create({
               model,
               layout: self.get('notFoundTemplate'),
-              renderer: self.renderer
             }).appendTo(el);
             return el;
           },
@@ -143,10 +151,11 @@ export default Component.extend({
             const model = Ember.Object.create({
               query
             });
-            Component.create({
+            let owner = getOwner(self);
+            let ComponentFactory = owner.factoryFor('component:-typeahead-suggestion');
+            ComponentFactory.create({
               model,
-              layout: self.get('pendingTemplate'),
-              renderer: self.renderer
+              layout: self.get('pendingTemplate')
             }).appendTo(el);
             return el;
           },
@@ -156,10 +165,11 @@ export default Component.extend({
               query,
               suggestions
             });
-            Component.create({
+            let owner = getOwner(self);
+            let ComponentFactory = owner.factoryFor('component:-typeahead-suggestion');
+            ComponentFactory.create({
               model,
-              layout: self.get('headerTemplate'),
-              renderer: self.renderer
+              layout: self.get('headerTemplate')
             }).appendTo(el);
             return el;
           },
@@ -169,10 +179,11 @@ export default Component.extend({
               query,
               suggestions
             });
-            Component.create({
+            let owner = getOwner(self);
+            let ComponentFactory = owner.factoryFor('component:-typeahead-suggestion');
+            ComponentFactory.create({
               model,
-              layout: self.get('footerTemplate'),
-              renderer: self.renderer
+              layout: self.get('footerTemplate')
             }).appendTo(el);
             return el;
           }
