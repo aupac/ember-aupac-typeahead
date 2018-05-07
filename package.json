@@ -34,7 +34,7 @@
   "dependencies": {
     "broccoli-funnel": "^2.0.1",
     "broccoli-merge-trees": "^2.0.0",
-    "corejs-typeahead": "^1.2.1",
+    "corejs-typeahead": "git+https://github.com/Gridium/typeahead.js.git#arrow-object-data-dist",
     "ember-aupac-control": "^1.2.0",
     "ember-cli-babel": "^6.6.0",
     "ember-cli-htmlbars": "^2.0.1"
