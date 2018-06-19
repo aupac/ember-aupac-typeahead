@@ -17,7 +17,10 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     let owner = getOwner(this);
-    owner.register('component:-typeahead-suggestion', Component);
+    let lookup = owner.lookup('component:-typeahead-suggestion');
+    if(isNone(lookup)){
+      owner.register('component:-typeahead-suggestion', Component);
+    }
   },
 
   //input tag attributes
