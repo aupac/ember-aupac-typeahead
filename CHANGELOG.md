@@ -1,5 +1,8 @@
 # Master
 
+# 3.1.0
+* (enhancement) Fixes behavior in Ember 3.1
+
 # 3.0.0
 * (enhancement) Updated to support ember@2.17.0
 * (breaking) Now using npm instead of bower for corejs-typeahead
