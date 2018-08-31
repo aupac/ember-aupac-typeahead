@@ -3,17 +3,17 @@
  **********************************************************/
 
 .aupac-typeahead.tt-hint[readonly] {
-  background-color: white !important;
+  background-color: white;
 }
 
 /*root typeahead class*/
 .twitter-typeahead {
-    display: inherit !important;
+    display: inherit;
     width: 100%;
 }
 
 .twitter-typeahead .tt-input[disabled] {
-  background-color : #eeeeee !important;
+  background-color : #eeeeee;
 }
 
 /*Added to input that's initialized into a typeahead*/
@@ -63,7 +63,7 @@
 .twitter-typeahead .tt-suggestion:hover,
 .twitter-typeahead .tt-suggestion:focus,
 .twitter-typeahead .tt-cursor {
-  cursor: hand !important;
+  cursor: hand;
   background-color: #337ab7;
   color: white;
 }
