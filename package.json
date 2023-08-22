@@ -1,6 +1,6 @@
 {
   "name": "ember-aupac-typeahead",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "typeahead.js for ember",
   "keywords": [
     "ember-addon",
@@ -34,7 +34,7 @@
   "dependencies": {
     "broccoli-funnel": "^2.0.1",
     "broccoli-merge-trees": "^2.0.0",
-    "corejs-typeahead": "git+https://github.com/Gridium/typeahead.js.git#arrow-object-data-dist",
+    "corejs-typeahead": "^1.3.3",
     "ember-aupac-control": "^1.2.0",
     "ember-cli-babel": "^6.6.0",
     "ember-cli-htmlbars": "^2.0.1"
