@@ -108,7 +108,7 @@ export default Component.extend({
   initializeTypeahead: function() {
     const self = this;
     //Setup the typeahead
-    const t = this.$().typeahead({
+    const t = this.$(this.element).typeahead({
       highlight: this.get('highlight'),
       hint: this.get('hint'),
       minLength: this.get('minLength'),
