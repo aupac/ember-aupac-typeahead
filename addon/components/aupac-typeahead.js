@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import Ember from 'ember';
 import footerTemplate from '../templates/components/aupac-typeahead/footer';
 import headerTemplate from '../templates/components/aupac-typeahead/header';
@@ -108,7 +109,7 @@ export default Component.extend({
   initializeTypeahead: function() {
     const self = this;
     //Setup the typeahead
-    const t = this.$(this.element).typeahead({
+    const t = $(this.element).typeahead({
       highlight: this.get('highlight'),
       hint: this.get('hint'),
       minLength: this.get('minLength'),
