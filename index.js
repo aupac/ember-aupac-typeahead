@@ -4,6 +4,7 @@
 var path = require('path');
 var Funnel = require('broccoli-funnel');
 var MergeTrees = require('broccoli-merge-trees');
+var fastbootTransform = require('fastboot-transform');
 
 module.exports = {
   name: 'ember-aupac-typeahead',
@@ -35,6 +36,8 @@ module.exports = {
     var momentTree = new Funnel(path.dirname(require.resolve('corejs-typeahead/dist/typeahead.jquery.js')), {
       files: ['typeahead.jquery.js'],
     });
+
+    momentTree = fastbootTransform(momentTree);
 
     return new MergeTrees([vendorTree, momentTree]);
   }
