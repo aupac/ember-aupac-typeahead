@@ -147,7 +147,7 @@ suggestionTemplate=customSuggestionTemplate
 ````
 
 ## Using your own version of [typeahead.js](https://twitter.github.io/typeahead.js/)
-You can disable the importing of typeahead.js by adding the following to your `/config/environment.js`
+You can disable the importing of typeahead.js by adding the following to your `ember-cli-build.js`
 
 ```javascript
 'ember-aupac-typeahead' : {
